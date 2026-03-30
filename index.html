@@ -1,390 +1,475 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cardápio Profissional - Agência Fonseca</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salsa it - HotelHarman</title>
 
-<style>
-    :root {
+    <style>
+      :root {
         --dark-green: #2f4f3f;
         --light-bg: #f7faf8;
         --text-color: #1c2b22;
         --border-color: #e3eee8;
-    }
+      }
 
-    *{
-        margin:0;
-        padding:0;
-        box-sizing:border-box;
-        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
 
-    body{
-        background:#ffffff;
+      body {
+        background: #ffffff;
         color: var(--text-color);
-    }
+      }
 
-    header{
-        position:fixed;
-        top:0;
-        left:0;
-        width:100%;
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
         background: var(--dark-green);
-        padding:15px;
-        box-shadow:0 4px 12px rgba(0,0,0,0.15);
-        z-index:999;
-    }
-
-    header input{
-        width:100%;
-        max-width: 800px;
-        display: block;
-        margin: 0 auto;
-        padding:12px 20px;
-        border-radius:25px;
-        border:none;
-        font-size:16px;
-        outline: none;
-    }
-
-    .container{
-        padding:110px 20px 60px;
-        max-width:900px;
-        margin:auto;
-    }
-
-    .section {
-        margin-bottom: 50px;
-    }
-
-    .section h2{
-        margin-bottom:20px;
-        color: var(--dark-green);
-        border-bottom:2px solid #dfe9e3;
-        padding-bottom:10px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    .item{
-        background: var(--light-bg);
+        padding: 10px 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 999;
         display: flex;
-        margin-bottom:18px;
-        border-radius:12px;
-        transition:.3s;
-        border:1px solid var(--border-color);
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+
+      header img {
+        height: 45px;
+        width: auto;
+      }
+
+      header input {
+        width: 100%;
+        max-width: 800px;
+        padding: 10px 20px;
+        border-radius: 25px;
+        border: none;
+        font-size: 16px;
+        outline: none;
+      }
+
+      .container {
+        padding: 130px 15px 40px;
+        max-width: 800px;
+        margin: auto;
+      }
+
+      .section h2 {
+        margin-bottom: 15px;
+        color: var(--dark-green);
+        border-bottom: 2px solid #dfe9e3;
+        padding-bottom: 8px;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+      }
+
+      /* ITEM LAYOUT - SEMPRE LADO A LADO */
+      .item {
+        background: var(--light-bg);
+        display: flex; /* Mantém lado a lado */
+        margin-bottom: 15px;
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
         overflow: hidden;
         align-items: center;
-    }
+        transition: transform 0.2s;
+      }
 
-    .item:hover{
-        background:#eef5f1;
-        transform: scale(1.01);
-    }
+      .item:hover {
+        background: #eef5f1;
+        transform: translateY(-2px);
+      }
 
-    .item img {
-        width: 140px;
-        height: 140px;
+      .item img {
+        width: 100px; /* Tamanho reduzido para ocupar menos espaço */
+        height: 100px;
         object-fit: cover;
-        flex-shrink: 0;
-    }
+        flex-shrink: 0; /* Impede a imagem de esmagar */
+      }
 
-    .item-info {
-        padding: 15px 20px;
+      .item-info {
+        padding: 12px 15px;
         flex-grow: 1;
-    }
+        min-width: 0; /* Ajuda o texto a não quebrar o layout */
+      }
 
-    .item h3{
-        font-size:18px;
-        margin-bottom:6px;
-        color: var(--text-color);
+      .item h3 {
+        font-size: 16px;
+        margin-bottom: 4px;
         display: flex;
+        flex-wrap: wrap; /* Permite que o preço desça se o título for muito longo */
         justify-content: space-between;
-        align-items: center;
-    }
+        gap: 5px;
+      }
 
-    .item p{
-        font-size:14px;
+      .item p {
+        font-size: 13px;
         opacity: 0.8;
-        line-height: 1.4;
-    }
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* Limita a 2 linhas para manter o design compacto */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
 
-    .price{
-        font-weight:bold;
+      .price {
         color: var(--dark-green);
-        font-size: 17px;
-    }
+        font-weight: bold;
+        white-space: nowrap;
+      }
 
-    @media(max-width:600px){
-        .item { flex-direction: column; }
-        .item img { width: 100%; height: 200px; }
-        .item h3 { flex-direction: column; align-items: flex-start; gap: 4px; }
-        .container { padding-top: 100px; }
-    }
-</style>
-</head>
+      /* AJUSTES MOBILE ESPECÍFICOS */
+      @media (max-width: 480px) {
+        .item img {
+          width: 85px; /* Ainda menor em celulares muito pequenos */
+          height: 85px;
+        }
 
-<body>
+        .item-info {
+          padding: 10px;
+        }
 
-<header>
-    <input type="text" id="search" placeholder="O que deseja comer hoje?">
-</header>
+        .item h3 {
+          font-size: 15px;
+        }
 
-<div class="container" id="menu">
+        .item p {
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
 
-    <div class="section">
+  <body>
+    <header>
+      <img src="./imgs/logo.jpeg" alt="Salsa it" width="175" height="70" />
+      <input type="text" id="search" placeholder="O que deseja comer hoje?" />
+    </header>
+
+    <div class="container" id="menu">
+      <div class="section">
         <h2>Entradas</h2>
 
         <div class="item">
-            <img src="./imgs/caprese.png" alt="Caprese">
-            <div class="item-info">
-                <h3>Caprese de camarão <span class="price">R$ 78,00</span></h3>
-                <p>Mini tomates, muçarela de búfala, pesto de manjericão e espuma de parmesão.</p>
-            </div>
+          <img src="https://plus.unsplash.com/premium_photo-1721830791498-ec809d9d94ec?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Caprese" />
+          <div class="item-info">
+            <h3>Caprese de camarão <span class="price">R$ 78,00</span></h3>
+            <p>
+              Mini tomates, muçarela de búfala, pesto de manjericão e espuma de
+              parmesão.
+            </p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="./imgs/carpaccio.png" alt="Carpaccio">
-            <div class="item-info">
-                <h3>Carpaccio de carne de sol <span class="price">R$ 52,00</span></h3>
-                <p>Curada com pesto de coentro e lascas de queijo coalho.</p>
-            </div>
+          <img src="./imgs/carpaccio.jpeg" alt="Carpaccio" />
+          <div class="item-info">
+            <h3>
+              Carpaccio de carne de sol <span class="price">R$ 52,00</span>
+            </h3>
+            <p>Curada com pesto de coentro e lascas de queijo coalho.</p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="./imgs/bolo-rubacao.png" alt="Rubacão">
-            <div class="item-info">
-                <h3>Bolinho de rubacão <span class="price">R$ 48,00</span></h3>
-                <p>Feijão verde, arroz da terra, carne de sol e queijo coalho com chutney de abacaxi.</p>
-            </div>
+          <img src="https://plus.unsplash.com/premium_photo-1721830791498-ec809d9d94ec?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Rubacão" />
+          <div class="item-info">
+            <h3>Bolinho de rubacão <span class="price">R$ 48,00</span></h3>
+            <p>
+              Feijão verde, arroz da terra, carne de sol e queijo coalho com
+              chutney de abacaxi.
+            </p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="./imgs/0camarao-empanado.jpeg" alt="Camarão">
-            <div class="item-info">
-                <h3>Camarão no Capellini <span class="price">R$ 58,00</span></h3>
-                <p>Camarão empanado no macarrão capellini crocante com chutney de abacaxi.</p>
-            </div>
+          <img src="./imgs/0camarao-empanado.jpeg" alt="Camarão" />
+          <div class="item-info">
+            <h3>Camarão no Capellini <span class="price">R$ 58,00</span></h3>
+            <p>
+              Camarão empanado no macarrão capellini crocante com chutney de
+              abacaxi.
+            </p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="./imgs/bolo-carangueijo.png" alt="Moqueca">
-            <div class="item-info">
-                <h3>Bolinho de moqueca <span class="price">R$ 57,00</span></h3>
-                <p>Recheio de caranguejo e picles de maxixe.</p>
-            </div>
+          <img src="./imgs/bolo-carangueijo.png" alt="Moqueca" />
+          <div class="item-info">
+            <h3>Bolinho de moqueca <span class="price">R$ 57,00</span></h3>
+            <p>Recheio de caranguejo e picles de maxixe.</p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=300" alt="Crostini">
-            <div class="item-info">
-                <h3>Crostini de macaxeira <span class="price">R$ 44,00</span></h3>
-                <p>Com pernil, molho de rapadura e pesto de coentro.</p>
-            </div>
+          <img
+            src="https://plus.unsplash.com/premium_photo-1721830791498-ec809d9d94ec?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Crostini"
+          />
+          <div class="item-info">
+            <h3>Crostini de macaxeira <span class="price">R$ 44,00</span></h3>
+            <p>Com pernil, moflho de rapadura e pesto de coentro.</p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="https://images.unsplash.com/photo-1559183030-8959ce15444d?auto=format&fit=crop&w=300" alt="Cheesecake">
-            <div class="item-info">
-                <h3>Cheesecake de coalho <span class="price">R$ 58,00</span></h3>
-                <p>Cheesecake salgado servido com favo de mel.</p>
-            </div>
+          <img src="./imgs/cheesecake.png" alt="Cheesecake" />
+          <div class="item-info">
+            <h3>Cheesecake de coalho <span class="price">R$ 58,00</span></h3>
+            <p>Cheesecake salgado servido com favo de mel.</p>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <div class="section">
+      <div class="section">
         <h2>Saladas</h2>
 
         <div class="item">
-            <img src="./imgs/caesar.png" alt="Caesar">
-            <div class="item-info">
-                <h3>Salada Caesar <span class="price">R$ 47,00</span></h3>
-                <p>Alface americana, croutons, parmesão e frango grelhado.</p>
-            </div>
+          <img src="./imgs/caesar.png" alt="Caesar" />
+          <div class="item-info">
+            <h3>Salada Caesar <span class="price">R$ 47,00</span></h3>
+            <p>Alface americana, croutons, parmesão e frango grelhado.</p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="./imgs/mediterranea.png" alt="Mediterrânea">
-            <div class="item-info">
-                <h3>Salada Mediterrânea <span class="price">R$ 52,00</span></h3>
-                <p>Quinoa, falafel, queijo artesanal e molho de iogurte.</p>
-            </div>
+          <img src="./imgs/mediterranea.png" alt="Mediterrânea" />
+          <div class="item-info">
+            <h3>Salada Mediterrânea <span class="price">R$ 52,00</span></h3>
+            <p>Quinoa, falafel, queijo artesanal e molho de iogurte.</p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="./imgs/primavera.png" alt="Primavera">
-            <div class="item-info">
-                <h3>Salada Primavera <span class="price">R$ 43,00</span></h3>
-                <p>Massa de arroz com legumes salteados no azeite e frango.</p>
-            </div>
+          <img
+            src="https://plus.unsplash.com/premium_photo-1721830791498-ec809d9d94ec?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Primavera"
+          />
+          <div class="item-info">
+            <h3>Salada Primavera <span class="price">R$ 43,00</span></h3>
+            <p>Massa de arroz com legumes salteados no azeite e frango.</p>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <div class="section">
+      <div class="section">
         <h2>Pratos Principais</h2>
 
         <div class="item">
-            <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=300" alt="Peixe">
-            <div class="item-info">
-                <h3>Peixe em crosta <span class="price">R$ 83,00</span></h3>
-                <p>Crosta de castanha de caju, purê de abóbora e chimichurri nordestino.</p>
-            </div>
+          <img src="./imgs/peixe.jpeg" alt="Peixe" />
+          <div class="item-info">
+            <h3>Peixe em crosta <span class="price">R$ 83,00</span></h3>
+            <p>
+              Crosta de castanha de caju, purê de abóbora e chimichurri
+              nordestino.
+            </p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=300" alt="Salmão">
-            <div class="item-info">
-                <h3>Salmão ao Cajá <span class="price">R$ 87,00</span></h3>
-                <p>Molho de cajá e maracujá, com salteado de quinoa e brócolis.</p>
-            </div>
+          <img src="./imgs/salmao.jpeg" alt="Salmão" />
+          <div class="item-info">
+            <h3>Salmão ao Cajá <span class="price">R$ 87,00</span></h3>
+            <p>Molho de cajá e maracujá, com salteado de quinoa e brócolis.</p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="https://images.unsplash.com/photo-1501595091296-3aa970afb3ff?auto=format&fit=crop&w=300" alt="Atum">
-            <div class="item-info">
-                <h3>Tataki de Atum <span class="price">R$ 86,00</span></h3>
-                <p>Crosta de gergelim, tarê de rapadura e maionese de wasabi.</p>
-            </div>
+          <img src="./imgs/atum.jpeg" alt="Atum" />
+          <div class="item-info">
+            <h3>Tataki de Atum <span class="price">R$ 86,00</span></h3>
+            <p>Crosta de gergelim, tarê de rapadura e maionese de wasabi.</p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=300" alt="Tropical">
-            <div class="item-info">
-                <h3>Camarão Tropical <span class="price">R$ 86,00</span></h3>
-                <p>Salteado com limão, servido com arroz de coco e abacaxi.</p>
-            </div>
+          <img
+            src="https://plus.unsplash.com/premium_photo-1721830791498-ec809d9d94ec?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Tropical"
+          />
+          <div class="item-info">
+            <h3>Camarão Tropical <span class="price">R$ 86,00</span></h3>
+            <p>Salteado com limão, servido com arroz de coco e abacaxi.</p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="./imgs/espaguete.png" alt="Espaguete">
-            <div class="item-info">
-                <h3>Espaguete com Camarões <span class="price">R$ 84,00</span></h3>
-                <p>Vinho branco, dedo de moça, alho crocante e limão.</p>
-            </div>
+          <img src="./imgs/espaguete.png" alt="Espaguete" />
+          <div class="item-info">
+            <h3>Espaguete com Camarões <span class="price">R$ 84,00</span></h3>
+            <p>Vinho branco, dedo de moça, alho crocante e limão.</p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=300" alt="Risoto Moqueca">
-            <div class="item-info">
-                <h3>Risoto de Moqueca <span class="price">R$ 98,00</span></h3>
-                <p>Com camarão empanado e couve crocante.</p>
-            </div>
+          <img src="./imgs/camarao.jpeg" alt="Risoto Moqueca" />
+          <div class="item-info">
+            <h3>Risoto de Moqueca <span class="price">R$ 98,00</span></h3>
+            <p>Com camarão empanado e couve crocante.</p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=300" alt="Risoto Nordestino">
-            <div class="item-info">
-                <h3>Risoto Nordestino <span class="price">R$ 76,00</span></h3>
-                <p>Carne seca na manteiga da terra e cubos de queijo coalho.</p>
-            </div>
+          <img
+            src="https://plus.unsplash.com/premium_photo-1721830791498-ec809d9d94ec?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Risoto Nordestino"
+          />
+          <div class="item-info">
+            <h3>Risoto Nordestino <span class="price">R$ 76,00</span></h3>
+            <p>Carne seca na manteiga da terra e cubos de queijo coalho.</p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="https://images.unsplash.com/photo-1473093226795-af9932fe5856?auto=format&fit=crop&w=300" alt="Nhoque">
-            <div class="item-info">
-                <h3>Nhoque de Banana <span class="price">R$ 76,00</span></h3>
-                <p>Fonduta de coalho, pesto de coentro e carne de sol.</p>
-            </div>
+          <img src="./imgs/nhoque.jpeg" alt="Nhoque" />
+          <div class="item-info">
+            <h3>Nhoque de Banana <span class="price">R$ 76,00</span></h3>
+            <p>Fonduta de coalho, pesto de coentro e carne de sol.</p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="https://images.unsplash.com/photo-1528733918455-5a59687cedf0?auto=format&fit=crop&w=300" alt="Parmegiana">
-            <div class="item-info">
-                <h3>Filé a Parmegiana <span class="price">R$ 78,00</span></h3>
-                <p>Mignon empanado com espaguete e molho de tomate artesanal.</p>
-            </div>
+          <img src="./imgs/parmegiana.jpeg" alt="Parmegiana" />
+          <div class="item-info">
+            <h3>Filé a Parmegiana <span class="price">R$ 78,00</span></h3>
+            <p>Mignon empanado com espaguete e molho de tomate artesanal.</p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=300" alt="Mignon Roti">
-            <div class="item-info">
-                <h3>Mignon ao Roti <span class="price">R$ 89,00</span></h3>
-                <p>Roti de rapadura, mousseline de macaxeira e farofa de banana.</p>
-            </div>
+          <img src="./imgs/mignon.jpeg" alt="Mignon Roti" />
+          <div class="item-info">
+            <h3>Mignon ao Roti <span class="price">R$ 89,00</span></h3>
+            <p>Roti de rapadura, mousseline de macaxeira e farofa de banana.</p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="https://images.unsplash.com/photo-1594041080603-93d40a0c8e4e?auto=format&fit=crop&w=300" alt="Picanha">
-            <div class="item-info">
-                <h3>Picanha Argentina <span class="price">R$ 97,00</span></h3>
-                <p>Com feijão verde, quiabo, maxixe e creme de queijo manteiga.</p>
-            </div>
+          <img src="./imgs/picanha.jpeg" alt="Picanha" />
+          <div class="item-info">
+            <h3>Picanha Argentina <span class="price">R$ 97,00</span></h3>
+            <p>Com feijão verde, quiabo, maxixe e creme de queijo manteiga.</p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=300" alt="Ravioli">
-            <div class="item-info">
-                <h3>Ravioli de Beterraba <span class="price">R$ 73,00</span></h3>
-                <p>Queijo de cabra, molho de limão e crocante de castanha.</p>
-            </div>
+          <img src="./imgs/raviole.jpeg" alt="Ravioli" />
+          <div class="item-info">
+            <h3>Ravioli de Beterraba <span class="price">R$ 73,00</span></h3>
+            <p>Queijo de cabra, molho de limão e crocante de castanha.</p>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <div class="section">
+      <div class="section">
         <h2>Sobremesas</h2>
 
         <div class="item">
-            <img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=300" alt="Colheita">
-            <div class="item-info">
-                <h3>Colheita Festiva <span class="price">R$ 38,00</span></h3>
-                <p>Brigadeiro de pamonha com calda de goiabada e cachaça.</p>
-            </div>
+          <img
+            src="https://plus.unsplash.com/premium_photo-1721830791498-ec809d9d94ec?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Colheita"
+          />
+          <div class="item-info">
+            <h3>Colheita Festiva <span class="price">R$ 38,00</span></h3>
+            <p>Brigadeiro de pamonha com calda de goiabada e cachaça.</p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="https://images.unsplash.com/photo-1579954115545-a95591f28bee?auto=format&fit=crop&w=300" alt="Cartola">
-            <div class="item-info">
-                <h3>Cartola Bananal <span class="price">R$ 27,00</span></h3>
-                <p>Queijo manteiga, banana, canela e doce de leite da fazenda.</p>
-            </div>
+          <img
+            src="https://plus.unsplash.com/premium_photo-1721830791498-ec809d9d94ec?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Cartola"
+          />
+          <div class="item-info">
+            <h3>Cartola Bananal <span class="price">R$ 27,00</span></h3>
+            <p>Queijo manteiga, banana, canela e doce de leite da fazenda.</p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=300" alt="Fazenda">
-            <div class="item-info">
-                <h3>Fazenda <span class="price">R$ 57,00</span></h3>
-                <p>Cocada mole, doce de caju, doce de leite e mix de queijos.</p>
-            </div>
+          <img src="./imgs/fazenda.jpeg" alt="Fazenda" />
+          <div class="item-info">
+            <h3>Fazenda <span class="price">R$ 57,00</span></h3>
+            <p>Cocada mole, doce de caju, doce de leite e mix de queijos.</p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="./imgs/terrario.png" alt="Terrario">
-            <div class="item-info">
-                <h3>Terrário de Chocolate <span class="price">R$ 33,00</span></h3>
-                <p>Bolo de chocolate, ganache, oreo e morangos frescos.</p>
-            </div>
+          <img src="./imgs/terrario.png" alt="Terrario" />
+          <div class="item-info">
+            <h3>Terrário de Chocolate <span class="price">R$ 33,00</span></h3>
+            <p>Bolo de chocolate, ganache, oreo e morangos frescos.</p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="./imgs/pudim.png" alt="Pudim">
-            <div class="item-info">
-                <h3>Pudim de Leite <span class="price">R$ 25,00</span></h3>
-                <p>Clássico pudim de leite condensado bem cremoso.</p>
-            </div>
+          <img src="./imgs/pudim.png" alt="Pudim" />
+          <div class="item-info">
+            <h3>Pudim de Leite <span class="price">R$ 25,00</span></h3>
+            <p>Clássico pudim de leite condensado bem cremoso.</p>
+          </div>
         </div>
 
         <div class="item">
-            <img src="./imgs/brownie.png" alt="Brownie">
-            <div class="item-info">
-                <h3>Brownie Amargo <span class="price">R$ 27,00</span></h3>
-                <p>Massa funcional com granola e sorvete de creme.</p>
-            </div>
+          <img src="./imgs/brownie.png" alt="Brownie" />
+          <div class="item-info">
+            <h3>Brownie Amargo <span class="price">R$ 27,00</span></h3>
+            <p>Massa funcional com granola e sorvete de creme.</p>
+          </div>
         </div>
+      </div>
+      <footer style="
+    padding: 40px 20px; 
+    text-align: center; 
+    background-color: var(--light-bg); 
+    border-top: 1px solid var(--border-color);
+    margin-top: 20px;
+">
+    <p style="
+        font-size: 14px; 
+        color: var(--dark-green); 
+        opacity: 0.8;
+        letter-spacing: 0.5px;
+    ">
+        Desenvolvido com carinho por 
+        <a href="https://github.com/guilhermefonseca2021" 
+           target="_blank" 
+           style="
+            color: var(--dark-green); 
+            text-decoration: none; 
+            font-weight: bold;
+            border-bottom: 1px solid transparent;
+            transition: 0.3s;
+           "
+           onmouseover="this.style.borderBottom='1px solid var(--dark-green)'"
+           onmouseout="this.style.borderBottom='1px solid transparent'"
+        >
+            @guilhermefonseca2021
+        </a>
+    </p>
+    <p style="font-size: 12px; margin-top: 8px; color: #999;">
+        &copy; 2026 Salsa it - Todos os direitos reservados.
+    </p>
+</footer>
     </div>
-</div>
 
-<script>
-    const search = document.getElementById("search");
-    search.addEventListener("keyup", function(){
+    <script>
+      const search = document.getElementById("search");
+      search.addEventListener("keyup", function () {
         let filter = search.value.toLowerCase();
         let items = document.querySelectorAll(".item");
-        items.forEach(item => {
-            let text = item.innerText.toLowerCase();
-            item.style.display = text.includes(filter) ? "flex" : "none";
+        items.forEach((item) => {
+          let text = item.innerText.toLowerCase();
+          item.style.display = text.includes(filter) ? "flex" : "none";
         });
-    });
-</script>
-
-</body>
+      });
+    </script>
+  </body>
 </html>
