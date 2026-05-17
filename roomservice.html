@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Cardápio Room Service 24h | Salsa It</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      :root {
+        --primary: #5e7a5a;
+        --primary-dark: #3a4f38;
+        --background: #eae6dc;
+        --white: #ffffff;
+        --border: #d5d1c7;
+        --text: #2b2b2b;
+      }
+
+      body {
+        background: var(--background);
+        color: var(--text);
+      }
+
+      /* HEADER */
+
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: var(--primary);
+        padding: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        z-index: 999;
+
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+      }
+
+      /* LOGO */
+
+      header img {
+        height: 60px;
+        width: auto;
+        border-radius: 12px;
+        object-fit: cover;
+      }
+
+      /* COLLAPSER */
+
+      .menu-collapse {
+        width: 100%;
+        max-width: 1000px;
+        background: var(--white);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      }
+
+      .collapse-button {
+        width: 100%;
+        border: none;
+        background: var(--white);
+        padding: 14px 16px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        color: var(--primary-dark);
+        transition: 0.2s;
+      }
+
+      .collapse-button:hover {
+        background: #f5f5f5;
+      }
+
+      .collapse-content {
+        display: none;
+        border-top: 1px solid var(--border);
+        background: #f8f6f1;
+      }
+
+      .collapse-content a {
+        display: block;
+        padding: 14px 16px;
+        text-decoration: none;
+        color: var(--text);
+        transition: 0.2s;
+        font-size: 15px;
+      }
+
+      .collapse-content a:hover {
+        background: #ece7dd;
+      }
+
+      .menu-collapse.active .collapse-content {
+        display: block;
+      }
+
+      /* SEARCH */
+
+      header input {
+        width: 100%;
+        max-width: 1000px;
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        font-size: 16px;
+        color: var(--text);
+        background: var(--white);
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      /* CONTAINER */
+
+      .container {
+        padding: 220px 20px 40px;
+        max-width: 1000px;
+        margin: auto;
+      }
+
+      /* SECTION */
+
+      .section {
+        margin-bottom: 40px;
+      }
+
+      .section h2 {
+        margin-bottom: 15px;
+        color: var(--primary-dark);
+        border-bottom: 2px solid var(--primary);
+        padding-bottom: 8px;
+        text-transform: uppercase;
+        font-size: 20px;
+        letter-spacing: 1px;
+      }
+
+      /* ITEMS */
+
+      .item {
+        background: var(--white);
+        padding: 15px;
+        margin-bottom: 12px;
+        border-radius: 10px;
+        transition: 0.3s;
+        border: 1px solid var(--border);
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+      }
+
+      .item:hover {
+        background: #f3f0e9;
+        border-color: var(--primary);
+      }
+
+      .item h3 {
+        font-size: 18px;
+        margin-bottom: 5px;
+        color: var(--text);
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .item p {
+        font-size: 14px;
+        color: #555555;
+        line-height: 1.4;
+        margin-bottom: 8px;
+      }
+
+      .price {
+        font-weight: bold;
+        color: var(--primary);
+        white-space: nowrap;
+      }
+
+      /* TAGS */
+
+      .tags {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+      }
+
+      .tag {
+        font-size: 11px;
+        font-weight: bold;
+        padding: 3px 8px;
+        border-radius: 4px;
+        text-transform: uppercase;
+      }
+
+      .tag-vegetariano {
+        background-color: #e8f5e9;
+        color: #2e7d32;
+      }
+
+      .tag-sem-gluten {
+        background-color: #fff3e0;
+        color: #ef6c00;
+      }
+
+      .tag-sem-lactose {
+        background-color: #e3f2fd;
+        color: #1565c0;
+      }
+
+      /* FOOTER INFO */
+
+      .footer-info {
+        background: var(--white);
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        margin-top: 20px;
+        text-align: center;
+      }
+
+      .footer-info p {
+        font-size: 14px;
+        color: #555555;
+        line-height: 1.6;
+      }
+
+      .footer-info .ramal {
+        font-weight: bold;
+        color: var(--primary);
+        font-size: 16px;
+        margin-top: 10px;
+      }
+
+      /* RESPONSIVO */
+
+      @media (max-width: 600px) {
+        .container {
+          padding: 230px 15px 40px;
+        }
+
+        .item h3 {
+          font-size: 16px;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .price {
+          margin-top: 5px;
+        }
+
+        header img {
+          height: 50px;
+        }
+
+        .collapse-button {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <!-- LOGO -->
+      <img src="./imgs/logo.jpeg" alt="Hotel Harman" />
+
+      <!-- COLLAPSER -->
+      <div class="menu-collapse" id="collapser">
+        <button class="collapse-button" onclick="toggleMenu()">
+          Escolher Menu
+          <span id="arrow">▼</span>
+        </button>
+
+        <div class="collapse-content">
+          <a href="./index.html">🍽️ Cardapio do Restaurante</a>
+          <a href="./piscinamenu.html"> 🍹 Piscina Menu </a>
+          <a href="./roomservice.html"> 🛎️ Room Service </a>
+        </div>
+      </div>
+
+      <!-- SEARCH -->
+      <input
+        type="text"
+        id="search"
+        placeholder="Pesquisar no Room Service (ex: tapioca, filé, suco, sobremesa)..."
+      />
+    </header>
+
+    <div class="container" id="menu">
+      <div class="section">
+        <h2>Café da Manhã / Breakfast</h2>
+
+        <div class="item">
+          <h3>Tapioca <span class="price">R$ 21,00</span></h3>
+          <p>Consultar sabores disponíveis. / Check available flavours.</p>
+        </div>
+
+        <div class="item">
+          <h3>Omelete <span class="price">R$ 27,00</span></h3>
+          <p>
+            Queijo, presunto, cebola, tomate. / Omelet - Cheese, ham, onion,
+            tomato.
+          </p>
+        </div>
+
+        <div class="item">
+          <h3>
+            2 Ovos mexidos com pão na chapa <span class="price">R$ 27,00</span>
+          </h3>
+          <p>2 Scrambled eggs with toast.</p>
+        </div>
+
+        <div class="item">
+          <h3>Frutas laminadas <span class="price">R$ 23,00</span></h3>
+          <p>
+            Abacaxi, melão e mamão. / Fruit plate (pineapple, melon and papaya).
+          </p>
+        </div>
+
+        <div class="item">
+          <h3>Cesta de pães <span class="price">R$ 11,00</span></h3>
+          <p>
+            Servido com manteiga e mel. / Bread basket (served with butter and
+            honey).
+          </p>
+        </div>
+
+        <div class="item">
+          <h3>Prato de frios <span class="price">R$ 17,00</span></h3>
+          <p>
+            Queijo coalho, queijo mussarela, presunto. / Cheese and ham plate
+            (coalho cheese, mozzarella cheese, ham).
+          </p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Saladas / Salads</h2>
+
+        <div class="item">
+          <h3>Salada caesar <span class="price">R$ 47,00</span></h3>
+          <p>
+            Clássica salada à base de alface americana, croutons, parmesão,
+            molho cremoso e frango grelhado. / Caesar salad - Classic salad made
+            with American lettuce, croutons, parmesan, creamy sauce and grilled
+            chicken.
+          </p>
+        </div>
+
+        <div class="item">
+          <h3>Salada mediterrânea <span class="price">R$ 52,00</span></h3>
+          <p>
+            Tomates, pepino japonês, azeitonas preta, hortelã, queijo fresco
+            artesanal, quinoa e falafel servido com molho de iogurte. (opção
+            vegetariana) / Mediterranean salad - Tomatoes, Japanese cucumber,
+            black olives, mint, fresh artisanal cheese, quinoa and falafel
+            served with yogurt sauce. (vegetarian option)
+          </p>
+          <div class="tags">
+            <span class="tag tag-vegetariano">Vegetariano</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <h3>Salada primavera <span class="price">R$ 43,00</span></h3>
+          <p>
+            Massa de arroz, brócolis, couve flor, cenoura, abobrinha, repolho
+            roxo, tomate assado e frango salteados com azeite e finalizado com
+            lascas de parmesão e salsa. / Spring salad - Rice noodles, broccoli,
+            cauliflower, carrots, zucchini, red cabbage, roasted tomatoes and
+            chicken sautéed with olive oil and finished with parmesan shavings
+            and parsley.
+          </p>
+          <div class="tags">
+            <span class="tag tag-sem-gluten">Sem Glúten</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Sopas / Soups</h2>
+
+        <div class="item">
+          <h3>Canja afetiva <span class="price">R$ 37,00</span></h3>
+          <p>
+            Aquela canja com gostinho de casa que abraça. Caldo de frango feito
+            na casa, legumes cozidos, arroz e frango. / Chicken soup - That soup
+            with a homey taste that hugs you. Homemade chicken broth, cooked
+            vegetables, rice and chicken.
+          </p>
+        </div>
+
+        <div class="item">
+          <h3>Sopa creme sertaneja <span class="price">R$ 39,00</span></h3>
+          <p>
+            Creme de jerimum com carne de sol tostada. / Paraiba countryside
+            cream soup - Pumpkin cream with toasted sun-dried meat.
+          </p>
+        </div>
+
+        <div class="item">
+          <h3>
+            Sopa creme rainha do Brasil <span class="price">R$ 37,00</span>
+          </h3>
+          <p>
+            Creme de mandioca e queijo coalho. Servida com carne de sol. /
+            Brazilian queen cream soup - Cassava cream and curd cheese. Served
+            with sun-dried meat.
+          </p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Sandubas / Sandwiches</h2>
+
+        <div class="item">
+          <h3>Beirute Hardman <span class="price">R$ 38,00</span></h3>
+          <p>
+            Pão artesanal, creme de frango com curry, frutas secas, cenoura
+            ralada, picles de repolho roxo, queijo e alface. / Beirut Hardman -
+            Artisan bread, chicken cream with curry, dried fruits, grated
+            carrot, pickled red cabbage, cheese and lettuce.
+          </p>
+        </div>
+
+        <div class="item">
+          <h3>Daniel's burguer <span class="price">R$ 43,00</span></h3>
+          <p>
+            Blend da casa flambado no uísque, queijo prato, maionese de dijon,
+            geleia de bacon e cebola crocante. / Daniel's Burger - House blend
+            flambéed in whiskey, cheese, Dijon mayonnaise, bacon jam and crispy
+            onion.
+          </p>
+        </div>
+
+        <div class="item">
+          <h3>Misto quente <span class="price">R$ 33,00</span></h3>
+          <p>
+            Misto quente feito antigamente, com queijo mussarela e presunto.
+            Acompanha fritas. / Grilled cheese with ham - Traditional grilled
+            cheese with ham. Served with fries.
+          </p>
+        </div>
+
+        <div class="item">
+          <h3>Misto caprese <span class="price">R$ 33,00</span></h3>
+          <p>
+            Um misto quente com bereguedê italiano com tomate assado e
+            manjericão. Acompanha fritas. / Caprese grilled cheese - Grilled
+            cheese with Italian touch, with baked tomatoes and basil. Served
+            with fries.
+          </p>
+          <div class="tags">
+            <span class="tag tag-vegetariano">Vegetariano</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <h3>Croque monsieur <span class="price">R$ 37,00</span></h3>
+          <p>
+            Um clássico misto quente Francês com pastrami e molho bechamel
+            gratinado. / Croque monsieur - A classic French hot sandwich with
+            pastrami and bechamel sauce gratinated.
+          </p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Pratos / Main Course</h2>
+
+        <div class="item">
+          <h3>Peixe Seixas <span class="price">R$ 67,00</span></h3>
+          <p>
+            Filé de peixe com molho de limão, purê e saladinha de rúcula e
+            abobrinhas grelhadas. / Seixas fish - Fish fillet with lemon sauce,
+            mashed potatoes and arugula salad and grilled zucchini.
+          </p>
+        </div>
+
+        <div class="item">
+          <h3>
+            Filé de frango João Pessoa <span class="price">R$ 53,00</span>
+          </h3>
+          <p>
+            Coxa de frango desossada, molho de laranja e arroz de couve e
+            espinafre. / João Pessoa chicken fillet - Boneless chicken thigh,
+            orange sauce with kale and spinach rice.
+          </p>
+        </div>
+
+        <div class="item">
+          <h3>Parmê Hardman <span class="price">R$ 64,00</span></h3>
+          <p>
+            Espaguete na manteiga, filé de frango à milanesa gratinado com
+            delicioso molho pomodoro da casa e manjericão fresco. / Hardman
+            parmigiana - Breaded chicken fillet gratin with spaghetti and
+            delicious house tomato and fresh basil.
+          </p>
+        </div>
+
+        <div class="item">
+          <h3>Filé Augusto dos Anjos <span class="price">R$ 73,00</span></h3>
+          <p>
+            Filé grelhado, molho roti, batatas rústicas e salada quente de
+            ricota e espinafre. / Filé Augusto dos Anjos - Grilled fillet, roti
+            sauce, baked potatoes with warm ricotta and spinach salad.
+          </p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Sobremesas / Dessert</h2>
+
+        <div class="item">
+          <h3>Bolo cafezudo <span class="price">R$ 28,00</span></h3>
+          <p>
+            Bolo de chocolate com ganache quente de café. / Coffee-flavored cake
+            - Chocolate cake with warm coffee ganache.
+          </p>
+          <div class="tags">
+            <span class="tag tag-vegetariano">Vegetariano</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <h3>Colheita festiva <span class="price">R$ 38,00</span></h3>
+          <p>
+            Tachinho de brigadeiro de pamonha com calda quente de goiabada e
+            cachaça. / Festive Harvest - Small pot of cornmeal brigadeiro with
+            hot guava and cachaça syrup.
+          </p>
+          <div class="tags">
+            <span class="tag tag-vegetariano">Vegetariano</span>
+            <span class="tag tag-sem-gluten">Sem Glúten</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <h3>Fazenda <span class="price">R$ 57,00</span></h3>
+          <p>
+            Cocada mole, doce de caju e doce de leite. Servido com queijo de
+            cabra, queijo de manteiga e queijo coalho assado. / Farm - Soft
+            coconut candy, cashew jam, and dulce de leche. Served with goat
+            cheese, butter cheese, and baked curd cheese.
+          </p>
+          <div class="tags">
+            <span class="tag tag-vegetariano">Vegetariano</span>
+            <span class="tag tag-sem-gluten">Sem Glúten</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <h3>Pudim de leite <span class="price">R$ 25,00</span></h3>
+          <p>Milk pudding.</p>
+          <div class="tags">
+            <span class="tag tag-vegetariano">Vegetariano</span>
+            <span class="tag tag-sem-gluten">Sem Glúten</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <h3>Brownie amargo <span class="price">R$ 27,00</span></h3>
+          <p>
+            Brownie de farinha de arroz, farelo de aveia, ovo, açúcar mascavo,
+            óleo de coco, canela, banana e granola, servido com sorvete de
+            creme. / Dark chocolate brownie - Brownie made with rice flour, oat
+            bran, egg, brown sugar, coconut oil, cinnamon, banana, and granola.
+            Served with vanilla ice cream.
+          </p>
+          <div class="tags">
+            <span class="tag tag-vegetariano">Vegetariano</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Porção Extra / Side Dishes</h2>
+
+        <div class="item">
+          <h3>Batata frita <span class="price">R$ 32,00</span></h3>
+          <p>French fries.</p>
+          <div class="tags">
+            <span class="tag tag-sem-lactose">Sem Lactose</span>
+            <span class="tag tag-vegetariano">Vegetariano</span>
+            <span class="tag tag-sem-gluten">Sem Glúten</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <h3>Arroz branco <span class="price">R$ 10,00</span></h3>
+          <p>White rice.</p>
+          <div class="tags">
+            <span class="tag tag-sem-lactose">Sem Lactose</span>
+            <span class="tag tag-vegetariano">Vegetariano</span>
+            <span class="tag tag-sem-gluten">Sem Glúten</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <h3>Legumes grelhados <span class="price">R$ 10,00</span></h3>
+          <p>Grilled vegetables.</p>
+          <div class="tags">
+            <span class="tag tag-sem-lactose">Sem Lactose</span>
+            <span class="tag tag-vegetariano">Vegetariano</span>
+            <span class="tag tag-sem-gluten">Sem Glúten</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <h3>Purê de batata <span class="price">R$ 10,00</span></h3>
+          <p>Mashed potatoes.</p>
+          <div class="tags">
+            <span class="tag tag-vegetariano">Vegetariano</span>
+            <span class="tag tag-sem-gluten">Sem Glúten</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <h3>Salada verde <span class="price">R$ 10,00</span></h3>
+          <p>Green salad.</p>
+          <div class="tags">
+            <span class="tag tag-sem-lactose">Sem Lactose</span>
+            <span class="tag tag-vegetariano">Vegetariano</span>
+            <span class="tag tag-sem-gluten">Sem Glúten</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <h3>Spaghetti <span class="price">R$ 15,00</span></h3>
+          <p>Spaghetti pasta.</p>
+          <div class="tags">
+            <span class="tag tag-vegetariano">Vegetariano</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Cardápio de Bebidas / Drinks Menu</h2>
+
+        <div class="item">
+          <h3>Expresso / Espresso <span class="price">R$ 7,00</span></h3>
+          <p>Café expresso.</p>
+        </div>
+
+        <div class="item">
+          <h3>Capuccino / Capuccino <span class="price">R$ 7,00</span></h3>
+          <p>Bebida com café e leite.</p>
+        </div>
+
+        <div class="item">
+          <h3>Café coado / Brewed coffee <span class="price">R$ 7,00</span></h3>
+          <p>Café tradicional coado.</p>
+        </div>
+
+        <div class="item">
+          <h3>
+            Chá (consultar sabores disponíveis)
+            <span class="price">R$ 5,00</span>
+          </h3>
+          <p>Tea (check available options).</p>
+        </div>
+
+        <div class="item">
+          <h3>Bulê de Leite / Milk <span class="price">R$ 15,00</span></h3>
+          <p>Porção de leite morno ou quente.</p>
+        </div>
+
+        <div class="item">
+          <h3>
+            Suco - copo ou jarra (consultar sabores disponíveis)
+            <span class="price">R$ 9,00 / R$ 15,00</span>
+          </h3>
+          <p>Juices - glass or jar (check available options).</p>
+        </div>
+
+        <div class="item">
+          <h3>Água sem gás / Still water <span class="price">R$ 6,50</span></h3>
+          <p>Água mineral.</p>
+        </div>
+
+        <div class="item">
+          <h3>
+            Água com gás / Sparkling water <span class="price">R$ 6,50</span>
+          </h3>
+          <p>Água mineral gaseificada.</p>
+        </div>
+
+        <div class="item">
+          <h3>
+            Água de coco / Coconut water <span class="price">R$ 5,00</span>
+          </h3>
+          <p>Água de coco natural.</p>
+        </div>
+
+        <div class="item">
+          <h3>Refrigerantes <span class="price">R$ 9,00</span></h3>
+          <p>
+            Coca-cola, coca-cola zero, guaraná, guaraná zero, sprite. / Soft
+            drinks.
+          </p>
+        </div>
+
+        <div class="item">
+          <h3>
+            Cerveja heineken / Beer heineken <span class="price">R$ 15,00</span>
+          </h3>
+          <p>Cerveja long neck.</p>
+        </div>
+
+        <div class="item">
+          <h3>
+            Cerveja corona / Beer corona <span class="price">R$ 16,00</span>
+          </h3>
+          <p>Cerveja long neck.</p>
+        </div>
+      </div>
+
+      <div class="footer-info">
+        <p>Salsa It — Um novo conceito de comer bem</p>
+        <p class="ramal">
+          Para fazer seu pedido ligue no ramal 8809 / To make your order please
+          dial 8809
+        </p>
+      </div>
+    </div>
+    <footer
+      style="
+        width: 100%;
+        padding: 40px 20px;
+        text-align: center;
+        background: #eef2ef;
+        border-top: 1px solid #d9e4dc;
+        margin-top: 40px;
+      "
+    >
+      <p
+        style="
+          font-size: 14px;
+          color: #2f4f3f;
+          opacity: 0.85;
+          letter-spacing: 0.5px;
+        "
+      >
+        Desenvolvido com carinho por
+
+        <a
+          href="https://github.com/guilhermefonseca2021"
+          target="_blank"
+          style="
+            color: #2f4f3f;
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 1px solid transparent;
+            transition: 0.3s;
+          "
+          onmouseover="this.style.borderBottom = '1px solid #2f4f3f'"
+          onmouseout="this.style.borderBottom = '1px solid transparent'"
+        >
+          @guilhermefonseca2021
+        </a>
+      </p>
+
+      <p style="font-size: 12px; margin-top: 10px; color: #7b8b82">
+        &copy; 2026 Salsa it - Todos os direitos reservados.
+      </p>
+    </footer>
+    <script>
+      /* COLLAPSER */
+
+      function toggleMenu() {
+        const collapser = document.getElementById("collapser");
+
+        const arrow = document.getElementById("arrow");
+
+        collapser.classList.toggle("active");
+
+        arrow.textContent = collapser.classList.contains("active") ? "▲" : "▼";
+      }
+
+      /* SEARCH */
+
+      const search = document.getElementById("search");
+
+      search.addEventListener("keyup", function () {
+        let filter = search.value.toLowerCase();
+
+        let items = document.querySelectorAll(".item");
+
+        items.forEach((item) => {
+          let text = item.innerText.toLowerCase();
+
+          if (text.includes(filter)) {
+            item.style.display = "block";
+          } else {
+            item.style.display = "none";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

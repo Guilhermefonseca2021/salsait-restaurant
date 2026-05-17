@@ -1,0 +1,1048 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Cardápio Bar - Piscina e Praia | Salsa It</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      :root {
+        --blue: #70a9bc;
+        --green: #5e7a5a;
+        --background: #eae6dc;
+        --white: #ffffff;
+        --border: #d5d1c7;
+        --text: #2b2b2b;
+      }
+
+      body {
+        background: var(--background);
+        color: var(--text);
+      }
+
+      /* HEADER FIXO */
+
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: var(--blue);
+        padding: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        z-index: 999;
+
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+      }
+
+      /* LOGO */
+
+      header img {
+        height: 60px;
+        width: auto;
+        border-radius: 12px;
+        object-fit: cover;
+      }
+
+      /* COLLAPSER */
+
+      .menu-collapse {
+        width: 100%;
+        max-width: 1000px;
+        background: var(--white);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      }
+
+      .collapse-button {
+        width: 100%;
+        border: none;
+        background: var(--white);
+        padding: 14px 16px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        color: var(--green);
+        transition: 0.2s;
+      }
+
+      .collapse-button:hover {
+        background: #f5f5f5;
+      }
+
+      .collapse-content {
+        display: none;
+        border-top: 1px solid var(--border);
+        background: #f8f6f1;
+      }
+
+      .collapse-content a {
+        display: block;
+        padding: 14px 16px;
+        text-decoration: none;
+        color: var(--text);
+        transition: 0.2s;
+        font-size: 15px;
+      }
+
+      .collapse-content a:hover {
+        background: #ece7dd;
+      }
+
+      .menu-collapse.active .collapse-content {
+        display: block;
+      }
+
+      /* SEARCH */
+
+      header input {
+        width: 100%;
+        max-width: 1000px;
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        font-size: 16px;
+        color: var(--text);
+        background: var(--white);
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      /* CONTAINER */
+      .container {
+        padding: 120px 15px 40px;
+        max-width: 1000px;
+        margin: auto;
+      }
+
+      /* SEÇÕES */
+
+      .section {
+        margin-bottom: 40px;
+      }
+
+      .section h2 {
+        margin-bottom: 15px;
+        color: var(--green);
+        border-bottom: 2px solid var(--green);
+        padding-bottom: 8px;
+        text-transform: uppercase;
+        font-size: 20px;
+        letter-spacing: 1px;
+      }
+
+      /* SUBSEÇÕES */
+
+      .subsection-title {
+        font-size: 16px;
+        color: var(--green);
+        margin: 15px 0 10px 5px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      /* ITENS */
+
+      .item {
+        background: var(--white);
+        padding: 15px;
+        margin-bottom: 12px;
+        border-radius: 10px;
+        transition: 0.3s;
+        border: 1px solid var(--border);
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+      }
+
+      .item:hover {
+        background: #f3f0e9;
+        border-color: var(--green);
+      }
+
+      .item h3 {
+        font-size: 18px;
+        margin-bottom: 5px;
+        color: var(--text);
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .item p {
+        font-size: 14px;
+        color: #555555;
+        line-height: 1.4;
+      }
+
+      .price {
+        font-weight: bold;
+        color: var(--green);
+        white-space: nowrap;
+        margin-left: 10px;
+      }
+
+      /* INFO BOX */
+
+      .info-box {
+        background: var(--blue);
+        color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 30px;
+        border: 1px solid #5a8f9e;
+      }
+
+      .info-box h2 {
+        color: #ffffff;
+        border-bottom: 2px solid #ffffff;
+        margin-bottom: 15px;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      .info-box .info-item {
+        background: rgba(255, 255, 255, 0.15);
+        border: none;
+        color: #ffffff;
+        margin-bottom: 8px;
+        padding: 12px;
+        border-radius: 6px;
+      }
+
+      .info-box .info-item h3 {
+        color: #ffffff;
+        font-size: 15px;
+      }
+
+      .info-box .info-item .price {
+        color: #ffffff;
+      }
+
+      .info-box p.rules {
+        font-size: 13px;
+        margin-top: 15px;
+        line-height: 1.5;
+        background: rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        border-radius: 6px;
+        font-style: italic;
+      }
+
+      /* RESPONSIVO */
+
+      @media (max-width: 600px) {
+        .container {
+          padding: 110px 15px 40px;
+        }
+
+        .item h3 {
+          font-size: 16px;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .price {
+          margin-left: 0;
+          margin-top: 5px;
+        }
+
+        header img {
+          height: 50px;
+        }
+
+        .collapse-button {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <!-- LOGO -->
+      <img src="./imgs/logo.jpeg" alt="Hotel Harman" />
+
+      <!-- COLLAPSER -->
+      <div class="menu-collapse" id="collapser">
+        <button class="collapse-button" onclick="toggleMenu()">
+          Escolher Menu
+          <span id="arrow">▼</span>
+        </button>
+
+        <div class="collapse-content">
+          <a href="./index.html">🍽️ Cardapio do Restaurante</a>
+          <a href="./piscinamenu.html"> 🍹 Piscina Menu </a>
+          <a href="./roomservice.html"> 🛎️ Room Service </a>
+        </div>
+      </div>
+
+      <!-- SEARCH -->
+      <input
+        type="text"
+        id="search"
+        placeholder="Pesquisar no cardápio de praia (ex: camarão, gin, caipirinha, espetinho)..."
+      />
+    </header>
+
+    <div class="container" id="menu">
+      <div class="container" id="menu">
+        <div class="section">
+          <h2>Petiscos e Entradas</h2>
+
+          <div class="item">
+            <h3>Matuto Peruano <span class="price">R$ 54,00</span></h3>
+            <p>
+              Ceviche de peixe, caju, coco verde, cajuína e coentro. Servido com
+              chips de batata-doce.
+            </p>
+          </div>
+
+          <div class="item">
+            <h3>
+              Matuto Peruano (Versão Vegetariana)
+              <span class="price">R$ 54,00</span>
+            </h3>
+            <p>Versão vegetariana sem peixe.</p>
+          </div>
+
+          <div class="item">
+            <h3>Feira de Mangalhos <span class="price">R$ 52,00</span></h3>
+            <p>
+              Almofadinhas de tapioca e queijo coalho. Servidas com tartar de
+              carne de sol e aioli de coentro.
+            </p>
+          </div>
+
+          <div class="item">
+            <h3>Mercado de Cabedelo <span class="price">R$ 78,00</span></h3>
+            <p>
+              Camarão com molho de moqueca. Servido com crocante de macaxeira.
+            </p>
+          </div>
+
+          <div class="item">
+            <h3>Sirina Concha <span class="price">R$ 51,00</span></h3>
+            <p>
+              Moquequinha de siri com farofa de cebola. Servida em conchinhas do
+              mar.
+            </p>
+          </div>
+
+          <div class="item">
+            <h3>Trio Forró Pé-de-Serra <span class="price">R$ 82,00</span></h3>
+            <p>
+              Pipocas de frango crocante, isca de peixe crocante e camarão
+              crocante. Servido com três molhinhos à cara da nossa terra:
+              teriyaki de rapadura, aioli de coentro e chutney de abacaxi.
+            </p>
+          </div>
+
+          <div class="item">
+            <h3>Mercado de Tambaú <span class="price">R$ 78,00</span></h3>
+            <p>
+              Camarão ao alho, óleo, pimenta dedo-de-moça, salsa e raspas de
+              limão.
+            </p>
+          </div>
+
+          <div class="item">
+            <h3>
+              Pérolas de Jackson do Pandeiro <span class="price">R$ 48,00</span>
+            </h3>
+            <p>
+              Bolinho de rubacão "prato típico Paraibano" a base de feijão
+              verde, arroz da terra, carne de sol e queijo coalho.
+            </p>
+          </div>
+
+          <div class="item">
+            <h3>Camarão Ouriçado <span class="price">R$ 58,00</span></h3>
+            <p>
+              Camarão empanado no macarrão bifum super crocante. Servido com
+              chutney de abacaxi.
+            </p>
+          </div>
+
+          <div class="item">
+            <h3>Mercado da Torre <span class="price">R$ 59,00</span></h3>
+            <p>
+              Panelinha de filé com molho de cerveja stout e farofinha crocante
+              de banana-da-terra.
+            </p>
+          </div>
+
+          <div class="item">
+            <h3>Manguezal <span class="price">R$ 64,00</span></h3>
+            <p>Pastel de siri com chutney de manga.</p>
+          </div>
+
+          <div class="item">
+            <h3>Matuto Enxerido <span class="price">R$ 37,00</span></h3>
+            <p>
+              Pastel de queijo coalho, gorgonzola e pera caramelizada. Servido
+              com molho de pimenta.
+            </p>
+          </div>
+
+          <div class="item">
+            <h3>
+              Matuto Enxerido (Versão Vegetariana)
+              <span class="price">R$ 37,00</span>
+            </h3>
+            <p>Versão vegetariana do pastel.</p>
+          </div>
+
+          <div class="item">
+            <h3>Crostini de Macaxeira <span class="price">R$ 44,00</span></h3>
+            <p>
+              Crostini crocante com pernil, molho de rapadura e pesto de
+              coentro.
+            </p>
+          </div>
+
+          <div class="item">
+            <h3>
+              Espetinho de carne de sol (02 Unid.)
+              <span class="price">R$ 34,00</span>
+            </h3>
+            <p>Espetinho de carne de sol acompanhado.</p>
+          </div>
+
+          <div class="item">
+            <h3>
+              Espetinho de frango com bacon (02 Unid.)
+              <span class="price">R$ 30,00</span>
+            </h3>
+            <p>Espetinho de frango envolto em bacon.</p>
+          </div>
+
+          <div class="item">
+            <h3>
+              Espetinho de Picanha (01 Unid.)
+              <span class="price">R$ 28,00</span>
+            </h3>
+            <p>Espetinho individual de picanha.</p>
+          </div>
+
+          <div class="item">
+            <h3>
+              Espetinho de queijo coalho (02 Unid.)
+              <span class="price">R$ 30,00</span>
+            </h3>
+            <p>Espetinho de queijo coalho grelhado.</p>
+          </div>
+
+          <div class="item">
+            <h3>Batata Frita <span class="price">R$ 32,00</span></h3>
+            <p>Nossa Batata frita com aioli de coentro.</p>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>Cocktails e Drinks Autorais</h2>
+
+          <div class="item">
+            <h3>Caipirinha <span class="price">R$ 28,00</span></h3>
+            <p>
+              Cachaça, Açúcar, Fruta do dia. (*Consultar sabores disponíveis do
+              dia)
+            </p>
+          </div>
+
+          <div class="item">
+            <h3>Caipiroska Nacional <span class="price">R$ 30,00</span></h3>
+            <p>
+              Vodka Smirnoff, Açúcar, Fruta do dia. (*Consultar sabores
+              disponíveis do dia)
+            </p>
+          </div>
+
+          <div class="item">
+            <h3>Caipiroska Importada <span class="price">R$ 36,00</span></h3>
+            <p>
+              Vodka Absolut, Açúcar, Fruta do dia. (*Consultar sabores
+              disponíveis do dia)
+            </p>
+          </div>
+
+          <div class="item">
+            <h3>Mojito <span class="price">R$ 30,00</span></h3>
+            <p>Rum, Açúcar, Limão, Água com Gás, Hortelã.</p>
+          </div>
+
+          <div class="item">
+            <h3>Piña Colada <span class="price">R$ 32,00</span></h3>
+            <p>Rum, Abacaxi, Leite de Coco, Leite Condensado.</p>
+          </div>
+
+          <div class="item">
+            <h3>Nevada <span class="price">R$ 30,00</span></h3>
+            <p>Vodka Smirnoff, Limão, Leite Condensado e Gelo.</p>
+          </div>
+
+          <div class="item">
+            <h3>Drink Hardman <span class="price">R$ 32,00</span></h3>
+            <p>Vodka Smirnoff, Morango, Açúcar, Limão Siciliano.</p>
+          </div>
+
+          <div class="item">
+            <h3>Salsa Drink <span class="price">R$ 30,00</span></h3>
+            <p>Vodka Smirnoff, Abacaxi, Morango, Manjericão, Açúcar.</p>
+          </div>
+
+          <div class="item">
+            <h3>Gin Tonic Citron <span class="price">R$ 42,00</span></h3>
+            <p>Gin Tanqueray, Limão Siciliano, Laranja, Schweppes Tônica.</p>
+          </div>
+
+          <div class="item">
+            <h3>Aperol Spritz <span class="price">R$ 36,00</span></h3>
+            <p>Aperol, Espumante, Laranja, Água com Gás.</p>
+          </div>
+
+          <div class="item">
+            <h3>New York Sour <span class="price">R$ 42,00</span></h3>
+            <p>Whisky Jack Daniel's, Limão Siciliano, Vinho Tinto, Açúcar.</p>
+          </div>
+
+          <div class="item">
+            <h3>Gin Basil Smash <span class="price">R$ 34,00</span></h3>
+            <p>Gin Tanqueray, Manjericão, Limão Siciliano, Açúcar.</p>
+          </div>
+
+          <div class="item">
+            <h3>Bramble <span class="price">R$ 34,00</span></h3>
+            <p>Gin Tanqueray, Limão Siciliano, Xarope de Amora, Açúcar.</p>
+          </div>
+
+          <div class="item">
+            <h3>Margarita <span class="price">R$ 34,00</span></h3>
+            <p>Tequila Jose Cuervo, Triple Sec, Suco de Limão, Sal.</p>
+          </div>
+
+          <div class="item">
+            <h3>Lagoa Azul <span class="price">R$ 32,00</span></h3>
+            <p>Vodka Smirnoff, Licor Curaçau Blue, Limão, Soda.</p>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>Bebidas Não Alcoólicas e Prontas</h2>
+
+          <div class="item">
+            <h3>Água com Gás <span class="price">R$ 6,50</span></h3>
+            <p>Água mineral com gás / Sparkling water.</p>
+          </div>
+
+          <div class="item">
+            <h3>Água sem Gás <span class="price">R$ 6,50</span></h3>
+            <p>Água mineral sem gás / Still water.</p>
+          </div>
+
+          <div class="item">
+            <h3>Água de Coco Natural <span class="price">R$ 5,00</span></h3>
+            <p>Natural coconut water.</p>
+          </div>
+
+          <div class="item">
+            <h3>Água Tônica <span class="price">R$ 7,00</span></h3>
+            <p>Tonic water.</p>
+          </div>
+
+          <div class="item">
+            <h3>Schweppes Citrus <span class="price">R$ 9,00</span></h3>
+            <p>Refrigerante Schweppes citrus.</p>
+          </div>
+
+          <div class="item">
+            <h3>H2O Limão 500ml <span class="price">R$ 9,50</span></h3>
+            <p>H2O lemon 500ml.</p>
+          </div>
+
+          <div class="item">
+            <h3>H2O Limoneto 500ml <span class="price">R$ 9,50</span></h3>
+            <p>H2O limonide 500ml.</p>
+          </div>
+
+          <div class="item">
+            <h3>Coca Cola 350ml <span class="price">R$ 9,00</span></h3>
+            <p>Refrigerante lata.</p>
+          </div>
+
+          <div class="item">
+            <h3>Coca Cola Zero 350ml <span class="price">R$ 9,00</span></h3>
+            <p>Refrigerante lata zero açúcar.</p>
+          </div>
+
+          <div class="item">
+            <h3>Fanta Laranja 350ml <span class="price">R$ 9,00</span></h3>
+            <p>Refrigerante lata fanta.</p>
+          </div>
+
+          <div class="item">
+            <h3>Guaraná 350ml <span class="price">R$ 9,00</span></h3>
+            <p>Refrigerante lata guaraná Antarctica.</p>
+          </div>
+
+          <div class="item">
+            <h3>Guaraná Zero 350ml <span class="price">R$ 9,00</span></h3>
+            <p>Refrigerante lata guaraná zero.</p>
+          </div>
+
+          <div class="item">
+            <h3>Sprite 350ml <span class="price">R$ 9,00</span></h3>
+            <p>Refrigerante lata sprite.</p>
+          </div>
+
+          <div class="item">
+            <h3>
+              Energético RedBull 250ml <span class="price">R$ 18,00</span>
+            </h3>
+            <p>Energy drink RedBull.</p>
+          </div>
+
+          <div class="item">
+            <h3>Smirnoff Ice 275ml <span class="price">R$ 13,00</span></h3>
+            <p>Bebida pronta Ice / Ready drink.</p>
+          </div>
+
+          <div class="item">
+            <h3>Gin Tônica Mixed 269ml <span class="price">R$ 12,00</span></h3>
+            <p>Bebida pronta Gin Tônica / Ready drink.</p>
+          </div>
+
+          <div class="item">
+            <h3>
+              Gin Tônica Mixed Pink 269ml <span class="price">R$ 12,00</span>
+            </h3>
+            <p>Bebida pronta Gin Tônica Pink / Ready drink.</p>
+          </div>
+
+          <div class="item">
+            <h3>Gin Tônica 310ml <span class="price">R$ 14,00</span></h3>
+            <p>Bebida pronta Gin Tônica / Ready drink.</p>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>Cervejas, Destilados e Licores</h2>
+
+          <div class="item">
+            <h3>Corona <span class="price">R$ 16,00</span></h3>
+            <p>Cerveja Long Neck.</p>
+          </div>
+
+          <div class="item">
+            <h3>Heineken <span class="price">R$ 15,00</span></h3>
+            <p>Cerveja Long Neck.</p>
+          </div>
+
+          <div class="item">
+            <h3>Spaten / Stella Artois <span class="price">R$ 13,00</span></h3>
+            <p>Cerveja Long Neck.</p>
+          </div>
+
+          <div class="item">
+            <h3>
+              Budweiser / Budweiser Zero <span class="price">R$ 13,00</span>
+            </h3>
+            <p>Cerveja Long Neck.</p>
+          </div>
+
+          <div class="item">
+            <h3>Brahma Zero <span class="price">R$ 9,50</span></h3>
+            <p>Cerveja Long Neck sem álcool.</p>
+          </div>
+
+          <div class="item">
+            <h3>Vodka Absolut (Dose) <span class="price">R$ 25,00</span></h3>
+            <p>Dose de Vodka Importada.</p>
+          </div>
+
+          <div class="item">
+            <h3>
+              Vodka Absolut (Garrafa) <span class="price">R$ 250,00</span>
+            </h3>
+            <p>Garrafa de Vodka Importada.</p>
+          </div>
+
+          <div class="item">
+            <h3>Vodka Smirnoff (Dose) <span class="price">R$ 20,00</span></h3>
+            <p>Dose de Vodka Nacional.</p>
+          </div>
+
+          <div class="item">
+            <h3>
+              Vodka Smirnoff (Garrafa) <span class="price">R$ 120,00</span>
+            </h3>
+            <p>Garrafa de Vodka Nacional.</p>
+          </div>
+
+          <div class="item">
+            <h3>Gin Tanqueray (Dose) <span class="price">R$ 27,00</span></h3>
+            <p>Dose de Gin Importado.</p>
+          </div>
+
+          <div class="item">
+            <h3>
+              Gin Tanqueray (Garrafa) <span class="price">R$ 280,00</span>
+            </h3>
+            <p>Garrafa de Gin Importado.</p>
+          </div>
+
+          <div class="item">
+            <h3>
+              Jose Cuervo Prata (Dose) <span class="price">R$ 20,00</span>
+            </h3>
+            <p>Dose de Tequila.</p>
+          </div>
+
+          <div class="item">
+            <h3>Jose Cuervo Ouro (Dose) <span class="price">R$ 22,00</span></h3>
+            <p>Dose de Tequila.</p>
+          </div>
+
+          <div class="item">
+            <h3>
+              Johnny Walker Red Label (Dose) <span class="price">R$ 25,00</span>
+            </h3>
+            <p>Dose de Whisky.</p>
+          </div>
+
+          <div class="item">
+            <h3>
+              Johnny Walker Red Label (Garrafa)
+              <span class="price">R$ 260,00</span>
+            </h3>
+            <p>Garrafa de Whisky.</p>
+          </div>
+
+          <div class="item">
+            <h3>
+              Johnny Walker Black Label / Old Par (Dose)
+              <span class="price">R$ 30,00</span>
+            </h3>
+            <p>Dose de Whisky 12 anos.</p>
+          </div>
+
+          <div class="item">
+            <h3>
+              Johnny Walker Black Label / Old Par (Garrafa)
+              <span class="price">R$ 320,00</span>
+            </h3>
+            <p>Garrafa de Whisky 12 anos.</p>
+          </div>
+
+          <div class="item">
+            <h3>Jack Daniel's (Dose) <span class="price">R$ 22,00</span></h3>
+            <p>Dose de Tennessee Whiskey.</p>
+          </div>
+
+          <div class="item">
+            <h3>
+              Jack Daniel's (Garrafa) <span class="price">R$ 220,00</span>
+            </h3>
+            <p>Garrafa de Tennessee Whiskey.</p>
+          </div>
+
+          <div class="item">
+            <h3>
+              Cognac Cortei Napoleon VSOP <span class="price">R$ 25,00</span>
+            </h3>
+            <p>Dose de Cognac.</p>
+          </div>
+
+          <div class="item">
+            <h3>Rum Bacardi <span class="price">R$ 20,00</span></h3>
+            <p>Dose de Rum.</p>
+          </div>
+
+          <div class="item">
+            <h3>Campari <span class="price">R$ 20,00</span></h3>
+            <p>Dose de Aperitivo.</p>
+          </div>
+
+          <div class="item">
+            <h3>Aperol <span class="price">R$ 22,00</span></h3>
+            <p>Dose de Aperitivo.</p>
+          </div>
+
+          <div class="item">
+            <h3>Cachaça Volúpia <span class="price">R$ 14,00</span></h3>
+            <p>Dose de Cachaça regional / Brazilian Rum.</p>
+          </div>
+
+          <div class="item">
+            <h3>Licor 43 <span class="price">R$ 25,00</span></h3>
+            <p>Dose de Licor.</p>
+          </div>
+
+          <div class="item">
+            <h3>Cointreau <span class="price">R$ 25,00</span></h3>
+            <p>Dose de Licor fino de laranja.</p>
+          </div>
+
+          <div class="item">
+            <h3>Bailey's <span class="price">R$ 22,00</span></h3>
+            <p>Dose de Licor creme irlandês.</p>
+          </div>
+
+          <div class="item">
+            <h3>Jagermeister <span class="price">R$ 25,00</span></h3>
+            <p>Dose de Licor de ervas.</p>
+          </div>
+
+          <div class="item">
+            <h3>Saquê Jun Daiti <span class="price">R$ 17,00</span></h3>
+            <p>Dose de Saquê.</p>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>Carta de Vinhos (Wine List)</h2>
+
+          <div class="subsection-title">Champagne / Espumantes (750ml)</div>
+          <div class="item">
+            <h3>Moët & Chandon <span class="price">R$ 720,00</span></h3>
+            <p>
+              Épernay / Moët & Chandon / Pinot Noir, Pinot Meunier, Chardonnay
+            </p>
+          </div>
+          <div class="item">
+            <h3>Faces Brut <span class="price">R$ 119,00</span></h3>
+            <p>
+              Encruzilhada Do Sul / Lidio Carraro / Chardonnay, Pinot Noir,
+              Riesling
+            </p>
+          </div>
+          <div class="item">
+            <h3>
+              Luiz Argenta La Jovem Brut <span class="price">R$ 218,00</span>
+            </h3>
+            <p>Ip Altos Montes / Luiz Argenta / Chardonnay, Riesling</p>
+          </div>
+
+          <div class="subsection-title">Vinhos Brancos (750ml)</div>
+          <div class="item">
+            <h3>Sinais <span class="price">R$ 130,00</span></h3>
+            <p>Alto Feliz / Don Guerino / Riesling</p>
+          </div>
+          <div class="item">
+            <h3>
+              Estancia Blend do Enologo <span class="price">R$ 99,00</span>
+            </h3>
+            <p>
+              Valle De Uco / Bodega Estancia Mendoza / Chardonnay, Chenin Blanc
+            </p>
+          </div>
+          <div class="item">
+            <h3>Faces do Chile <span class="price">R$ 118,00</span></h3>
+            <p>Vale De Maipo / Lidio Carraro / Sauvignon Blanc</p>
+          </div>
+
+          <div class="subsection-title">Vinhos Tintos (750ml)</div>
+          <div class="item">
+            <h3>
+              Arcos da Vinha Colheita <span class="price">R$ 130,00</span>
+            </h3>
+            <p>
+              Dão / Arcos Do Rei / Alfrocheiro, Jaen, Tintas Roriz, Touriga
+              Nacional
+            </p>
+          </div>
+          <div class="item">
+            <h3>
+              Porca de Murça Colheita <span class="price">R$ 160,00</span>
+            </h3>
+            <p>
+              Douro / Real Companhia Velha / Tinta B., Tinta R., Touriga F.,
+              Touriga N.
+            </p>
+          </div>
+          <div class="item">
+            <h3>Casa Dei Fanti <span class="price">R$ 158,00</span></h3>
+            <p>Puglia / Casa Dei Fanti / Montepulciano D'Abruzzo</p>
+          </div>
+
+          <div class="subsection-title">Meia Garrafa (375ml)</div>
+          <div class="item">
+            <h3>
+              Alto Tierruca Reserva Carmenere
+              <span class="price">R$ 70,00</span>
+            </h3>
+            <p>Chile, Vale Central</p>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <h2>Regras e Utilização do Espaço</h2>
+
+          <div
+            class="subsection-title"
+            style="color: #ffffff; border: none; margin-left: 0"
+          >
+            Produtos vindos de fora
+          </div>
+          <div class="item info-item">
+            <h3>Taxa de Rolha <span class="price">R$ 50,00</span></h3>
+            <p style="color: #eef5f1">
+              Valor cobrado por garrafa trazida para as dependências.
+            </p>
+          </div>
+          <div class="item info-item">
+            <h3>
+              Consumo de Alimentos Externos <span class="price">R$ 200,00</span>
+            </h3>
+            <p style="color: #eef5f1">
+              Taxa para consumo de alimentos de outros estabelecimentos.
+            </p>
+          </div>
+
+          <div
+            class="subsection-title"
+            style="
+              color: #ffffff;
+              border: none;
+              margin-left: 0;
+              margin-top: 20px;
+            "
+          >
+            Day Use / Não Hóspedes (Revertido em Consumação)
+          </div>
+          <div class="item info-item">
+            <h3>
+              1 Espreguiçadeira + Guarda-Sol <span class="price">R$ 50,00</span>
+            </h3>
+            <p style="color: #eef5f1">
+              Custo de utilização revertido integralmente em consumo.
+            </p>
+          </div>
+          <div class="item info-item">
+            <h3>
+              2 Espreguiçadeiras + Guarda-Sol
+              <span class="price">R$ 80,00</span>
+            </h3>
+            <p style="color: #eef5f1">
+              Custo de utilização revertido integralmente em consumo.
+            </p>
+          </div>
+          <div class="item info-item">
+            <h3>
+              Mesa + 4 Cadeiras + Guarda-Sol
+              <span class="price">R$ 100,00</span>
+            </h3>
+            <p style="color: #eef5f1">
+              Custo de utilização revertido integralmente em consumo.
+            </p>
+          </div>
+
+          <p class="rules">
+            🚫 Proibido o uso de caixa de som de qualquer natureza nas
+            dependências do hotel.<br />
+            🚫 É proibido o consumo de bebidas e alimentos de outros
+            estabelecimentos neste local sem a devida quitação das taxas de
+            serviço. <br />
+            🚫 Taxa de servico opcional, Constetamento somente no ato da
+            assinatura!
+          </p>
+        </div>
+      </div>
+
+      <!-- CONTINUE O RESTANTE DO SEU HTML ORIGINAL AQUI -->
+    </div>
+
+    <footer
+      style="
+        width: 100%;
+        padding: 40px 20px;
+        text-align: center;
+        background: #eef2ef;
+        border-top: 1px solid #d9e4dc;
+        margin-top: 40px;
+      "
+    >
+      <p
+        style="
+          font-size: 14px;
+          color: #2f4f3f;
+          opacity: 0.85;
+          letter-spacing: 0.5px;
+        "
+      >
+        Desenvolvido com carinho por
+
+        <a
+          href="https://github.com/guilhermefonseca2021"
+          target="_blank"
+          style="
+            color: #2f4f3f;
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 1px solid transparent;
+            transition: 0.3s;
+          "
+          onmouseover="this.style.borderBottom = '1px solid #2f4f3f'"
+          onmouseout="this.style.borderBottom = '1px solid transparent'"
+        >
+          @guilhermefonseca2021
+        </a>
+      </p>
+
+      <p style="font-size: 12px; margin-top: 10px; color: #7b8b82">
+        &copy; 2026 Salsa it - Todos os direitos reservados.
+      </p>
+    </footer>
+
+    <script>
+      /* COLLAPSER */
+
+      function toggleMenu() {
+        const collapser = document.getElementById("collapser");
+
+        const arrow = document.getElementById("arrow");
+
+        collapser.classList.toggle("active");
+
+        arrow.textContent = collapser.classList.contains("active") ? "▲" : "▼";
+      }
+
+      /* SEARCH */
+
+      const search = document.getElementById("search");
+
+      search.addEventListener("keyup", function () {
+        let filter = search.value.toLowerCase();
+
+        let items = document.querySelectorAll(".item");
+
+        items.forEach((item) => {
+          let text = item.innerText.toLowerCase();
+
+          if (text.includes(filter)) {
+            item.style.display = "block";
+          } else {
+            item.style.display = "none";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

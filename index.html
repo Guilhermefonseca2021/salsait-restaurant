@@ -144,12 +144,174 @@
           font-size: 12px;
         }
       }
+
+      /* HEADER */
+
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: var(--dark-green);
+        padding: 12px 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 999;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+
+      header img {
+        height: 55px;
+        width: auto;
+        object-fit: contain;
+      }
+
+      /* COLLAPSE MENU */
+
+      .menu-collapse {
+        width: 100%;
+        max-width: 800px;
+        background: #ffffff;
+        border-radius: 14px;
+        overflow: hidden;
+        border: 1px solid #dfe9e3;
+      }
+
+      .collapse-button {
+        width: 100%;
+        border: none;
+        background: #ffffff;
+        padding: 16px 18px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--dark-green);
+
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      .collapse-button:hover {
+        background: #f4f8f5;
+      }
+
+      .collapse-content {
+        display: none;
+        flex-direction: column;
+        border-top: 1px solid #e5ece7;
+        background: #fafcfb;
+      }
+
+      .menu-collapse.active .collapse-content {
+        display: flex;
+      }
+
+      .collapse-content a {
+        padding: 15px 18px;
+        text-decoration: none;
+        color: var(--text-color);
+        font-size: 15px;
+        transition: 0.2s;
+
+        border-bottom: 1px solid #edf2ee;
+      }
+
+      .collapse-content a:last-child {
+        border-bottom: none;
+      }
+
+      .collapse-content a:hover {
+        background: #eef5f1;
+        padding-left: 24px;
+      }
+
+      /* SEARCH */
+
+      header input {
+        width: 100%;
+        max-width: 800px;
+
+        padding: 12px 18px;
+
+        border-radius: 30px;
+        border: none;
+
+        font-size: 15px;
+        outline: none;
+
+        background: #ffffff;
+        color: var(--text-color);
+
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+      }
+
+      /* CONTAINER */
+
+      .container {
+        padding: 240px 15px 40px;
+        max-width: 800px;
+        margin: auto;
+      }
+
+      /* MOBILE */
+
+      @media (max-width: 600px) {
+        header {
+          padding: 10px 14px;
+        }
+
+        header img {
+          height: 48px;
+        }
+
+        .collapse-button {
+          font-size: 15px;
+          padding: 14px 15px;
+        }
+
+        .collapse-content a {
+          font-size: 14px;
+          padding: 14px 15px;
+        }
+
+        header input {
+          font-size: 14px;
+          padding: 11px 15px;
+        }
+
+        .container {
+          padding-top: 230px;
+        }
+      }
     </style>
   </head>
 
   <body>
     <header>
       <img src="./imgs/logo.jpeg" alt="Salsa it" width="175" height="70" />
+
+      <!-- MENU -->
+      <div class="menu-collapse" id="collapser">
+        <button class="collapse-button" onclick="toggleMenu()">
+          Escolher Menu
+          <span id="arrow">▼</span>
+        </button>
+
+        <div class="collapse-content">
+          <a href="./index.html">🍽️ Cardapio do Restaurante</a>
+          <a href="./piscinamenu.html">🍹 Piscina Menu</a>
+          <a href="./roomservice.html">🛎️ Room Service</a>
+        </div>
+      </div>
+
+      <!-- PESQUISA -->
       <input type="text" id="search" placeholder="O que deseja comer hoje?" />
     </header>
 
@@ -371,10 +533,7 @@
         <h2>Sobremesas</h2>
 
         <div class="item">
-          <img
-            src="./imgs/ColheitaFestiva.jpeg"
-            alt="Colheita"
-          />
+          <img src="./imgs/ColheitaFestiva.jpeg" alt="Colheita" />
           <div class="item-info">
             <h3>Colheita Festiva <span class="price">R$ 38,00</span></h3>
             <p>Brigadeiro de pamonha com calda de goiabada e cachaça.</p>
@@ -424,56 +583,77 @@
           </div>
         </div>
       </div>
-      <footer
-        style="
-          padding: 40px 20px;
-          text-align: center;
-          background-color: var(--light-bg);
-          border-top: 1px solid var(--border-color);
-          margin-top: 20px;
-        "
-      >
-        <p
-          style="
-            font-size: 14px;
-            color: var(--dark-green);
-            opacity: 0.8;
-            letter-spacing: 0.5px;
-          "
-        >
-          Desenvolvido com carinho por
-          <a
-            href="https://github.com/guilhermefonseca2021"
-            target="_blank"
-            style="
-              color: var(--dark-green);
-              text-decoration: none;
-              font-weight: bold;
-              border-bottom: 1px solid transparent;
-              transition: 0.3s;
-            "
-            onmouseover="
-              this.style.borderBottom = '1px solid var(--dark-green)'
-            "
-            onmouseout="this.style.borderBottom = '1px solid transparent'"
-          >
-            @guilhermefonseca2021
-          </a>
-        </p>
-        <p style="font-size: 12px; margin-top: 8px; color: #999">
-          &copy; 2026 Salsa it - Todos os direitos reservados.
-        </p>
-      </footer>
     </div>
 
+    <footer
+      style="
+        width: 100%;
+        padding: 40px 20px;
+        text-align: center;
+        background: #eef2ef;
+        border-top: 1px solid #d9e4dc;
+        margin-top: 40px;
+      "
+    >
+      <p
+        style="
+          font-size: 14px;
+          color: #2f4f3f;
+          opacity: 0.85;
+          letter-spacing: 0.5px;
+        "
+      >
+        Desenvolvido com carinho por
+
+        <a
+          href="https://github.com/guilhermefonseca2021"
+          target="_blank"
+          style="
+            color: #2f4f3f;
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 1px solid transparent;
+            transition: 0.3s;
+          "
+          onmouseover="this.style.borderBottom = '1px solid #2f4f3f'"
+          onmouseout="this.style.borderBottom = '1px solid transparent'"
+        >
+          @guilhermefonseca2021
+        </a>
+      </p>
+
+      <p style="font-size: 12px; margin-top: 10px; color: #7b8b82">
+        &copy; 2026 Salsa it - Todos os direitos reservados.
+      </p>
+    </footer>
+
     <script>
+      function toggleMenu() {
+        const collapser = document.getElementById("collapser");
+        const arrow = document.getElementById("arrow");
+
+        collapser.classList.toggle("active");
+
+        arrow.textContent = collapser.classList.contains("active") ? "▲" : "▼";
+      }
+
+      /* SEARCH */
+
       const search = document.getElementById("search");
+
       search.addEventListener("keyup", function () {
         let filter = search.value.toLowerCase();
+
         let items = document.querySelectorAll(".item");
+
         items.forEach((item) => {
           let text = item.innerText.toLowerCase();
-          item.style.display = text.includes(filter) ? "flex" : "none";
+
+          if (text.includes(filter)) {
+            item.style.display = "flex";
+          } else {
+            item.style.display = "none";
+          }
         });
       });
     </script>
