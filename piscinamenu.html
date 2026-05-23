@@ -272,6 +272,58 @@
           font-size: 15px;
         }
       }
+
+      /* BOTÃO */
+      #translateToggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 999999;
+      }
+
+      #translateBtn {
+        background: #111;
+        color: white;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      /* ESCONDE COISAS FEIAS DO GOOGLE */
+      #google_translate_element {
+        display: none;
+      }
+
+      .goog-te-banner-frame.skiptranslate {
+        display: none !important;
+      }
+
+      body {
+        top: 0 !important;
+      }
+
+      .goog-logo-link,
+      .goog-te-gadget,
+      .goog-te-combo {
+        display: none !important;
+      }
+
+      .goog-tooltip,
+      .goog-tooltip:hover {
+        display: none !important;
+      }
+
+      .goog-text-highlight {
+        background: none !important;
+        box-shadow: none !important;
+      }
+
+      iframe.skiptranslate {
+        display: none !important;
+      }
     </style>
   </head>
 
@@ -304,6 +356,12 @@
     </header>
 
     <div class="container" id="menu">
+      <!-- BOTÃO DE TRADUÇÃO -->
+      <div id="translateToggle">
+        <button id="translateBtn">🇺🇸 English</button>
+      </div>
+
+      <div id="google_translate_element"></div>
       <div class="container" id="menu">
         <div class="section">
           <h2>Petiscos e Entradas</h2>
@@ -1013,19 +1071,24 @@
     </footer>
 
     <script>
-      /* COLLAPSER */
-
+      /* ==========================
+   COLLAPSER
+========================== */
       function toggleMenu() {
         const collapser = document.getElementById("collapser");
+
         const arrow = document.getElementById("arrow");
+
+        if (!collapser || !arrow) return;
 
         collapser.classList.toggle("active");
 
         arrow.textContent = collapser.classList.contains("active") ? "▲" : "▼";
       }
 
-      /* REMOVE ACENTOS */
-
+      /* ==========================
+   REMOVE ACENTOS
+========================== */
       function normalizeText(text) {
         return text
           .toLowerCase()
@@ -1033,25 +1096,106 @@
           .replace(/[\u0300-\u036f]/g, "");
       }
 
-      /* SEARCH */
+      /* ==========================
+   ESPERA O HTML CARREGAR
+========================== */
+      document.addEventListener("DOMContentLoaded", function () {
+        /* ==========================
+       SEARCH (NÃO QUEBRA COM TRADUÇÃO)
+    ========================== */
+        const search = document.getElementById("search");
 
-      const search = document.getElementById("search");
+        if (search) {
+          search.addEventListener("keyup", function () {
+            const filter = normalizeText(search.value);
 
-      search.addEventListener("keyup", function () {
-        const filter = normalizeText(search.value);
+            const items = document.querySelectorAll(".item");
 
-        const items = document.querySelectorAll(".item");
+            items.forEach((item) => {
+              const title = item.querySelector("h3")?.textContent || "";
 
-        items.forEach((item) => {
-          const text = normalizeText(item.innerText);
+              const description = item.querySelector("p")?.textContent || "";
 
-          if (text.includes(filter)) {
-            item.style.display = "flex"; // mantém layout original
-          } else {
-            item.style.display = "none";
-          }
-        });
+              const text = normalizeText(title + " " + description);
+
+              item.style.display = text.includes(filter) ? "" : "none";
+            });
+          });
+        }
+
+        /* ==========================
+       BOTÃO TRADUÇÃO
+    ========================== */
+        const translateBtn = document.getElementById("translateBtn");
+
+        if (translateBtn) {
+          translateBtn.addEventListener("click", function () {
+            const select = document.querySelector(".goog-te-combo");
+
+            if (!select) return;
+
+            let translated = localStorage.getItem("translated") === "true";
+
+            if (!translated) {
+              select.value = "en";
+
+              this.innerHTML = "🇧🇷 Português";
+
+              translated = true;
+            } else {
+              select.value = "pt";
+
+              this.innerHTML = "🇺🇸 English";
+
+              translated = false;
+            }
+
+            localStorage.setItem("translated", translated);
+
+            select.dispatchEvent(new Event("change"));
+          });
+        }
       });
+
+      /* ==========================
+   GOOGLE TRANSLATE
+========================== */
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+          {
+            pageLanguage: "pt",
+            includedLanguages: "en,pt",
+            autoDisplay: false,
+          },
+          "google_translate_element",
+        );
+
+        /* Mantém tradução entre páginas */
+        const checkTranslate = setInterval(() => {
+          const select = document.querySelector(".goog-te-combo");
+
+          const button = document.getElementById("translateBtn");
+
+          if (select) {
+            const translated = localStorage.getItem("translated") === "true";
+
+            if (translated) {
+              select.value = "en";
+
+              select.dispatchEvent(new Event("change"));
+
+              if (button) {
+                button.innerHTML = "🇧🇷 Português";
+              }
+            }
+
+            clearInterval(checkTranslate);
+          }
+        }, 500);
+      }
     </script>
+
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    s
   </body>
 </html>

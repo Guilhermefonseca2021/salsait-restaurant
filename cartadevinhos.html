@@ -261,6 +261,59 @@
           font-size: 15px;
         }
       }
+
+      
+      /* BOTÃO */
+      #translateToggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 999999;
+      }
+
+      #translateBtn {
+        background: #111;
+        color: white;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      /* ESCONDE COISAS FEIAS DO GOOGLE */
+      #google_translate_element {
+        display: none;
+      }
+
+      .goog-te-banner-frame.skiptranslate {
+        display: none !important;
+      }
+
+      body {
+        top: 0 !important;
+      }
+
+      .goog-logo-link,
+      .goog-te-gadget,
+      .goog-te-combo {
+        display: none !important;
+      }
+
+      .goog-tooltip,
+      .goog-tooltip:hover {
+        display: none !important;
+      }
+
+      .goog-text-highlight {
+        background: none !important;
+        box-shadow: none !important;
+      }
+
+      iframe.skiptranslate {
+        display: none !important;
+      }
     </style>
   </head>
 
@@ -290,6 +343,14 @@
     </header>
 
     <div class="container" id="menu">
+      <!-- BOTÃO DE TRADUÇÃO -->
+<div id="translateToggle">
+    <button id="translateBtn">
+        🇺🇸 English
+    </button>
+</div>
+
+<div id="google_translate_element"></div>
       <div class="brand">
         <p>Carta de Vinhos</p>
       </div>
@@ -827,51 +888,201 @@
     </div>
 
     <script>
-  /* COLLAPSER */
-  function toggleMenu() {
-    const collapser = document.getElementById("collapser");
-    const arrow = document.getElementById("arrow");
+/* ==========================
+   COLLAPSER
+========================== */
+function toggleMenu() {
+  const collapser =
+    document.getElementById("collapser");
 
-    collapser.classList.toggle("active");
+  const arrow =
+    document.getElementById("arrow");
 
-    arrow.textContent = collapser.classList.contains("active")
+  if (!collapser || !arrow) return;
+
+  collapser.classList.toggle("active");
+
+  arrow.textContent =
+    collapser.classList.contains("active")
       ? "▲"
       : "▼";
+}
+
+/* ==========================
+   REMOVE ACENTOS
+========================== */
+function normalizeText(text) {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
+/* ==========================
+   ESPERA O HTML CARREGAR
+========================== */
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+
+    /* ==========================
+       SEARCH (NÃO QUEBRA COM TRADUÇÃO)
+    ========================== */
+    const search =
+      document.getElementById("search");
+
+    if (search) {
+
+      search.addEventListener(
+        "keyup",
+        function () {
+
+          const filter =
+            normalizeText(search.value);
+
+          const items =
+            document.querySelectorAll(".item");
+
+          items.forEach((item) => {
+
+            const title =
+              item.querySelector("h3")
+                ?.textContent || "";
+
+            const description =
+              item.querySelector("p")
+                ?.textContent || "";
+
+            const text =
+              normalizeText(
+                title + " " + description
+              );
+
+            item.style.display =
+              text.includes(filter)
+                ? ""
+                : "none";
+          });
+        }
+      );
+    }
+
+    /* ==========================
+       BOTÃO TRADUÇÃO
+    ========================== */
+    const translateBtn =
+      document.getElementById(
+        "translateBtn"
+      );
+
+    if (translateBtn) {
+
+      translateBtn.addEventListener(
+        "click",
+        function () {
+
+          const select =
+            document.querySelector(
+              ".goog-te-combo"
+            );
+
+          if (!select) return;
+
+          let translated =
+            localStorage.getItem(
+              "translated"
+            ) === "true";
+
+          if (!translated) {
+
+            select.value = "en";
+
+            this.innerHTML =
+              "🇧🇷 Português";
+
+            translated = true;
+
+          } else {
+
+            select.value = "pt";
+
+            this.innerHTML =
+              "🇺🇸 English";
+
+            translated = false;
+          }
+
+          localStorage.setItem(
+            "translated",
+            translated
+          );
+
+          select.dispatchEvent(
+            new Event("change")
+          );
+        }
+      );
+    }
   }
+);
 
-  /* REMOVE ACENTOS */
-  function normalizeText(text) {
-    return text
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
-  }
+/* ==========================
+   GOOGLE TRANSLATE
+========================== */
+function googleTranslateElementInit() {
 
-  /* SEARCH */
-  const search = document.getElementById("search");
-  const items = document.querySelectorAll(".item");
+  new google.translate.TranslateElement(
+    {
+      pageLanguage: "pt",
+      includedLanguages: "en,pt",
+      autoDisplay: false
+    },
+    "google_translate_element"
+  );
 
-  // salva display original de cada item
-  items.forEach((item) => {
-    item.dataset.originalDisplay =
-      getComputedStyle(item).display;
-  });
+  /* Mantém tradução entre páginas */
+  const checkTranslate =
+    setInterval(() => {
 
-  search.addEventListener("input", function () {
-    const filter = normalizeText(search.value);
+      const select =
+        document.querySelector(
+          ".goog-te-combo"
+        );
 
-    items.forEach((item) => {
-      const text = normalizeText(item.innerText);
+      const button =
+        document.getElementById(
+          "translateBtn"
+        );
 
-      if (text.includes(filter)) {
-        // volta exatamente ao display original
-        item.style.display =
-          item.dataset.originalDisplay;
-      } else {
-        item.style.display = "none";
+      if (select) {
+
+        const translated =
+          localStorage.getItem(
+            "translated"
+          ) === "true";
+
+        if (translated) {
+
+          select.value = "en";
+
+          select.dispatchEvent(
+            new Event("change")
+          );
+
+          if (button) {
+            button.innerHTML =
+              "🇧🇷 Português";
+          }
+        }
+
+        clearInterval(
+          checkTranslate
+        );
       }
-    });
-  });
+    }, 500);
+}
 </script>
+
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>s
   </body>
 </html>
