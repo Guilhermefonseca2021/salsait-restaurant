@@ -1,0 +1,877 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carta de Vinhos - Salsa it</title>
+
+    <style>
+      :root {
+        --header: #161616;
+        --bg: #ffffff;
+        --text: #111111;
+        --muted: #666;
+        --border: #e8e8e8;
+        --hover: #f6f6f6;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      /* HEADER */
+
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: var(--header);
+        z-index: 999;
+        padding: 12px 18px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+
+      header img {
+        height: 55px;
+        object-fit: contain;
+      }
+
+      /* MENU COLLAPSE */
+
+      .menu-collapse {
+        width: 100%;
+        max-width: 800px;
+        background: #fff;
+        border-radius: 14px;
+        overflow: hidden;
+      }
+
+      .collapse-button {
+        width: 100%;
+        border: none;
+        background: #fff;
+        padding: 16px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 700;
+      }
+
+      .collapse-content {
+        display: none;
+        flex-direction: column;
+        border-top: 1px solid var(--border);
+      }
+
+      .menu-collapse.active .collapse-content {
+        display: flex;
+      }
+
+      .collapse-content a {
+        text-decoration: none;
+        color: #111;
+        padding: 14px 18px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .collapse-content a:hover {
+        background: #f7f7f7;
+      }
+
+      /* SEARCH */
+
+      header input {
+        width: 100%;
+        max-width: 800px;
+        padding: 13px 18px;
+        border-radius: 40px;
+        border: none;
+        outline: none;
+        font-size: 15px;
+      }
+
+      /* CONTAINER */
+
+      .container {
+        max-width: 900px;
+        margin: auto;
+        padding: 245px 20px 40px;
+      }
+
+      /* BRAND */
+
+      .brand {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .brand h1 {
+        font-family: Georgia, serif;
+        font-style: italic;
+        font-size: 42px;
+        font-weight: 500;
+      }
+
+      .brand p {
+        color: #555;
+        margin-top: 6px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+
+      /* SECTION */
+
+      .section {
+        margin-bottom: 45px;
+      }
+
+      .section-title {
+        font-size: 22px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #111;
+        margin-bottom: 22px;
+      }
+
+      .subsection-title {
+        margin: 30px 0 14px;
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        color: #777;
+      }
+
+      /* WINE ITEM */
+
+      .item {
+        padding: 18px 0;
+        border-bottom: 1px solid var(--border);
+        transition: 0.2s;
+      }
+
+      .item:hover {
+        background: var(--hover);
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .item-left {
+        flex: 1;
+      }
+
+      .item h3 {
+        font-size: 17px;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+
+      .origin {
+        font-size: 11px;
+        letter-spacing: 1px;
+        color: #777;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .item p {
+        color: #666;
+        line-height: 1.5;
+        font-size: 14px;
+      }
+
+      .price {
+        font-size: 17px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      /* FOOTER */
+
+      footer {
+        margin-top: 50px;
+        border-top: 1px solid var(--border);
+        padding: 30px 20px;
+        text-align: center;
+      }
+
+      footer p {
+        color: #777;
+        font-size: 13px;
+      }
+
+      footer a {
+        color: #111;
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      /* MOBILE */
+
+      @media (max-width: 600px) {
+        .container {
+          padding-top: 230px;
+        }
+
+        .brand h1 {
+          font-size: 34px;
+        }
+
+        .item-header {
+          flex-direction: column;
+          gap: 6px;
+        }
+
+        .price {
+          font-size: 16px;
+        }
+
+        .item h3 {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <img src="./imgs/logo.jpeg" alt="Salsa it" />
+
+      <div class="menu-collapse" id="collapser">
+        <button class="collapse-button" onclick="toggleMenu()">
+          Escolher Menu
+          <span id="arrow">▼</span>
+        </button>
+
+        <div class="collapse-content">
+          <a href="./index.html">🍽️ Cardápio Restaurante</a>
+          <a href="./piscinamenu.html">🍹 Piscina Menu</a>
+          <a href="./roomservice.html">🛎️ Room Service</a>
+          <a href="./cartadevinhos.html">🍷 Carta de Vinhos</a>
+        </div>
+      </div>
+
+      <input
+        type="text"
+        id="search"
+        placeholder="Buscar vinho, país ou uva..."
+      />
+    </header>
+
+    <div class="container" id="menu">
+      <div class="brand">
+        <p>Carta de Vinhos</p>
+      </div>
+
+      <!-- ESPUMANTES -->
+
+      <section class="section">
+        <h2 class="section-title">Espumantes e Champagnes</h2>
+
+        <h4 class="subsection-title">Novo Mundo</h4>
+
+        <div class="item">
+          <div class="item-header">
+            <div class="item-left">
+              <span class="origin">Brasil</span>
+              <h3>Chandon Brut</h3>
+              <p>Garibaldi / Chandon / Chardonnay, Pinot Noir, Riesling</p>
+            </div>
+            <span class="price">R$ 160,00</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-header">
+            <div class="item-left">
+              <span class="origin">Brasil</span>
+              <h3>Faces Brut</h3>
+              <p>
+                Encruzilhada do Sul / Lidio Carraro / Chardonnay, Pinot Noir,
+                Riesling
+              </p>
+            </div>
+            <span class="price">R$ 119,00</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-header">
+            <div class="item-left">
+              <span class="origin">Brasil</span>
+              <h3>Faces Brut Rosé</h3>
+              <p>Encruzilhada do Sul / Lidio Carraro / Pinot Noir</p>
+            </div>
+            <span class="price">R$ 119,00</span>
+          </div>
+        </div>
+
+        <h4 class="subsection-title">Velho Mundo</h4>
+
+        <div class="item">
+          <div class="item-header">
+            <div class="item-left">
+              <span class="origin">França</span>
+              <h3>Veuve Clicquot</h3>
+              <p>Reims / Chardonnay, Pinot Noir</p>
+            </div>
+            <span class="price">R$ 682,00</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-header">
+            <div class="item-left">
+              <span class="origin">França</span>
+              <h3>Moët & Chandon</h3>
+              <p>Épernay / Pinot Noir, Chardonnay</p>
+            </div>
+            <span class="price">R$ 720,00</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- BRANCOS -->
+
+      <section class="section">
+        <h2 class="section-title">Brancos</h2>
+
+        <div class="item">
+          <div class="item-header">
+            <div class="item-left">
+              <span class="origin">Brasil</span>
+              <h3>Sinais</h3>
+              <p>Alto Feliz / Don Guerino / Riesling</p>
+            </div>
+            <span class="price">R$ 130,00</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-header">
+            <div class="item-left">
+              <span class="origin">Argentina</span>
+              <h3>Estancia Blend do Enólogo</h3>
+              <p>Valle de Uco / Chardonnay, Chenin Blanc</p>
+            </div>
+            <span class="price">R$ 99,00</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- TINTOS -->
+
+      <section class="section">
+        <h2 class="section-title">Tintos</h2>
+
+        <div class="item">
+          <div class="item-header">
+            <div class="item-left">
+              <span class="origin">Argentina</span>
+              <h3>Amayan Winemaker</h3>
+              <p>Vale de Uco / Malbec</p>
+            </div>
+            <span class="price">R$ 140,00</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-header">
+            <div class="item-left">
+              <span class="origin">Portugal</span>
+              <h3>Porca de Murça Reserva</h3>
+              <p>Douro / Touriga Nacional</p>
+            </div>
+            <span class="price">R$ 280,00</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-header">
+            <div class="item-left">
+              <span class="origin">Itália</span>
+              <h3>Sessantanni Vintage</h3>
+              <p>Puglia / San Marzano / Primitivo</p>
+            </div>
+            <span class="price">R$ 450,00</span>
+          </div>
+        </div>
+      </section>
+
+      
+
+      <!-- ROSES -->
+
+<section class="section">
+
+  <h2 class="section-title">
+    Roses
+  </h2>
+
+  <h4 class="subsection-title">
+    Novo Mundo
+  </h4>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-left">
+        <span class="origin">Brasil</span>
+        <h3>Faces do Brasil</h3>
+        <p>Encruzilhada do Sul / Lidio Carraro / Pinot Noir</p>
+      </div>
+      <span class="price">R$ 118,00</span>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-left">
+        <span class="origin">Chile</span>
+        <h3>Indomita Polero</h3>
+        <p>Vale Central / Viña Indomita / Cabernet Sauvignon</p>
+      </div>
+      <span class="price">R$ 90,00</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- TINTOS -->
+
+<section class="section">
+
+  <h2 class="section-title">
+    Tintos
+  </h2>
+
+  <h4 class="subsection-title">
+    Novo Mundo
+  </h4>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-left">
+        <span class="origin">Brasil</span>
+        <h3>Sinais</h3>
+        <p>Alto Feliz / Don Guerino / Malbec</p>
+      </div>
+      <span class="price">R$ 130,00</span>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-left">
+        <span class="origin">Argentina</span>
+        <h3>Estancia Blend do Enólogo</h3>
+        <p>Mendoza / Bodega Estancia Mendoza / Merlot, Malbec</p>
+      </div>
+      <span class="price">R$ 99,00</span>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-left">
+        <span class="origin">Argentina</span>
+        <h3>Estancia Varietal</h3>
+        <p>Mendoza / Bodega Estancia Mendoza / Cabernet Sauvignon</p>
+      </div>
+      <span class="price">R$ 120,00</span>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-left">
+        <span class="origin">Argentina</span>
+        <h3>Amayan Winemaker</h3>
+        <p>Vale de Uco / Belhara Estate / Malbec</p>
+      </div>
+      <span class="price">R$ 140,00</span>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-left">
+        <span class="origin">Argentina</span>
+        <h3>Vistoso</h3>
+        <p>San Juan / Vistoso / Malbec</p>
+      </div>
+      <span class="price">R$ 98,00</span>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-left">
+        <span class="origin">Chile</span>
+        <h3>Bestia Collection</h3>
+        <p>Vale Central / Bestia / Cabernet Sauvignon</p>
+      </div>
+      <span class="price">R$ 97,00</span>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-left">
+        <span class="origin">Chile</span>
+        <h3>Bestia Collection</h3>
+        <p>Vale Central / Bestia / Carménère</p>
+      </div>
+      <span class="price">R$ 97,00</span>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-left">
+        <span class="origin">Chile</span>
+        <h3>Faces do Chile</h3>
+        <p>Vale de Maipo / Lidio Carraro / Cabernet Sauvignon</p>
+      </div>
+      <span class="price">R$ 118,00</span>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-left">
+        <span class="origin">Chile</span>
+        <h3>Alto Tierruca Reserva</h3>
+        <p>D.O. Valle de Colchagua / Viñedos Marchigüe / Pinot Noir</p>
+      </div>
+      <span class="price">R$ 150,00</span>
+    </div>
+  </div>
+
+  <h4 class="subsection-title">
+    Velho Mundo
+  </h4>
+
+  <!-- TINTOS - VELHO MUNDO -->
+
+<div class="item">
+  <div class="item-header">
+    <div class="item-left">
+      <span class="origin">Portugal</span>
+      <h3>Arcos da Vinha Colheita</h3>
+      <p>Dão / Arcos do Rei / Alfrocheiro, Jaen, Tinta Roriz, Touriga Nacional</p>
+    </div>
+    <span class="price">R$ 130,00</span>
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-header">
+    <div class="item-left">
+      <span class="origin">Portugal</span>
+      <h3>Além do Mar</h3>
+      <p>Lisboa / Arcos do Rei / Touriga Nacional, Aragonês</p>
+    </div>
+    <span class="price">R$ 120,00</span>
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-header">
+    <div class="item-left">
+      <span class="origin">Portugal</span>
+      <h3>Monte dos Perdigões Colheita</h3>
+      <p>Alentejo / Monte dos Perdigões / Aragonês, Cabernet Sauvignon, Trincadeira</p>
+    </div>
+    <span class="price">R$ 220,00</span>
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-header">
+    <div class="item-left">
+      <span class="origin">Portugal</span>
+      <h3>Porca de Murça Colheita</h3>
+      <p>Douro / Real Companhia Velha / Tinta B., Tinta R., Touriga F., Touriga N.</p>
+    </div>
+    <span class="price">R$ 160,00</span>
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-header">
+    <div class="item-left">
+      <span class="origin">Portugal</span>
+      <h3>Porca de Murça Reserva</h3>
+      <p>Douro / Real Companhia Velha / Tinta R., Touriga F., Touriga N.</p>
+    </div>
+    <span class="price">R$ 280,00</span>
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-header">
+    <div class="item-left">
+      <span class="origin">Itália</span>
+      <h3>Antico Rosone</h3>
+      <p>Puglia / Caviro / Primitivo</p>
+    </div>
+    <span class="price">R$ 160,00</span>
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-header">
+    <div class="item-left">
+      <span class="origin">Itália</span>
+      <h3>Casa dei Fanti</h3>
+      <p>Puglia / Casa dei Fanti / Montepulciano D'Abruzzo</p>
+    </div>
+    <span class="price">R$ 158,00</span>
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-header">
+    <div class="item-left">
+      <span class="origin">Itália</span>
+      <h3>Antico Rosone</h3>
+      <p>Emilia Romagna / Caviro / Sangiovese</p>
+    </div>
+    <span class="price">R$ 158,00</span>
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-header">
+    <div class="item-left">
+      <span class="origin">Itália</span>
+      <h3>Sessantanni Vintage</h3>
+      <p>Puglia / San Marzano / Primitivo</p>
+    </div>
+    <span class="price">R$ 450,00</span>
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-header">
+    <div class="item-left">
+      <span class="origin">Itália</span>
+      <h3>Amarone della Valpolicella Classico 2007</h3>
+      <p>Vêneto / Tenuta Lena Di Mezzo / Corvina, Rondinella, Molinara</p>
+    </div>
+    <span class="price">R$ 699,00</span>
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-header">
+    <div class="item-left">
+      <span class="origin">Espanha</span>
+      <h3>Belo</h3>
+      <p>Castilla y León / Bodega Los Tinos / Tempranillo</p>
+    </div>
+    <span class="price">R$ 110,00</span>
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-header">
+    <div class="item-left">
+      <span class="origin">Espanha</span>
+      <h3>Frontaura Crianza</h3>
+      <p>Morales de Toro / Frontaura / Tempranillo</p>
+    </div>
+    <span class="price">R$ 350,00</span>
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-header">
+    <div class="item-left">
+      <span class="origin">Espanha</span>
+      <h3>Nexus Crianza</h3>
+      <p>Ribeira del Duero / Frontaura & Victoria / Tempranillo</p>
+    </div>
+    <span class="price">R$ 300,00</span>
+  </div>
+</div>
+
+</section>
+
+<!-- MEIA GARRAFA -->
+
+<section class="section">
+
+<h2 class="section-title">
+  Meia Garrafa (375ml)
+</h2>
+
+<div class="item">
+  <div class="item-header">
+    <div class="item-left">
+      <span class="origin">Chile</span>
+      <h3>Alto Tierruca Sauvignon Blanc</h3>
+      <p>Vale Central</p>
+    </div>
+    <span class="price">R$ 70,00</span>
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-header">
+    <div class="item-left">
+      <span class="origin">Chile</span>
+      <h3>Alto Tierruca Reserva Carmenere</h3>
+      <p>Vale Central</p>
+    </div>
+    <span class="price">R$ 70,00</span>
+  </div>
+</div>
+
+</section>
+
+<!-- FORTIFICADOS -->
+
+<section class="section">
+
+<h2 class="section-title">
+  Fortificados (50ml)
+</h2>
+
+<div class="item">
+  <div class="item-header">
+    <div class="item-left">
+      <span class="origin">Portugal</span>
+      <h3>Porto Menerez Tawny</h3>
+      <p>Douro</p>
+    </div>
+    <span class="price">R$ 19,00</span>
+  </div>
+</div>
+
+</section>
+
+</div>
+    <footer
+        style="
+          width: 100%;
+          padding: 40px 20px;
+          text-align: center;
+          background: #eef2ef;
+          border-top: 1px solid #d9e4dc;
+          margin-top: 40px;
+        "
+      >
+        <p
+          style="
+            font-size: 14px;
+            color: #2f4f3f;
+            opacity: 0.85;
+            letter-spacing: 0.5px;
+          "
+        >
+          Desenvolvido com carinho por
+
+          <a
+            href="https://github.com/guilhermefonseca2021"
+            target="_blank"
+            style="
+              color: #2f4f3f;
+              text-decoration: none;
+              font-weight: bold;
+              border-bottom: 1px solid transparent;
+              transition: 0.3s;
+            "
+            onmouseover="this.style.borderBottom = '1px solid #2f4f3f'"
+            onmouseout="this.style.borderBottom = '1px solid transparent'"
+          >
+            @guilhermefonseca2021
+          </a>
+        </p>
+
+        <p style="font-size: 12px; margin-top: 10px; color: #7b8b82">
+          &copy; 2026 Salsa it - Todos os direitos reservados.
+        </p>
+      </footer>
+    </div>
+
+    <script>
+  /* COLLAPSER */
+  function toggleMenu() {
+    const collapser = document.getElementById("collapser");
+    const arrow = document.getElementById("arrow");
+
+    collapser.classList.toggle("active");
+
+    arrow.textContent = collapser.classList.contains("active")
+      ? "▲"
+      : "▼";
+  }
+
+  /* REMOVE ACENTOS */
+  function normalizeText(text) {
+    return text
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
+
+  /* SEARCH */
+  const search = document.getElementById("search");
+  const items = document.querySelectorAll(".item");
+
+  // salva display original de cada item
+  items.forEach((item) => {
+    item.dataset.originalDisplay =
+      getComputedStyle(item).display;
+  });
+
+  search.addEventListener("input", function () {
+    const filter = normalizeText(search.value);
+
+    items.forEach((item) => {
+      const text = normalizeText(item.innerText);
+
+      if (text.includes(filter)) {
+        // volta exatamente ao display original
+        item.style.display =
+          item.dataset.originalDisplay;
+      } else {
+        item.style.display = "none";
+      }
+    });
+  });
+</script>
+  </body>
+</html>

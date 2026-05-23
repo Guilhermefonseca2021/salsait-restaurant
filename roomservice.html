@@ -289,6 +289,7 @@
           <a href="./index.html">🍽️ Cardapio do Restaurante</a>
           <a href="./piscinamenu.html"> 🍹 Piscina Menu </a>
           <a href="./roomservice.html"> 🛎️ Room Service </a>
+          <a href="./cartadevinhos.html">🍷 Carta de Vinhos</a>
         </div>
       </div>
 
@@ -783,7 +784,6 @@
 
       function toggleMenu() {
         const collapser = document.getElementById("collapser");
-
         const arrow = document.getElementById("arrow");
 
         collapser.classList.toggle("active");
@@ -791,20 +791,29 @@
         arrow.textContent = collapser.classList.contains("active") ? "▲" : "▼";
       }
 
+      /* REMOVE ACENTOS */
+
+      function normalizeText(text) {
+        return text
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+      }
+
       /* SEARCH */
 
       const search = document.getElementById("search");
 
       search.addEventListener("keyup", function () {
-        let filter = search.value.toLowerCase();
+        const filter = normalizeText(search.value);
 
-        let items = document.querySelectorAll(".item");
+        const items = document.querySelectorAll(".item");
 
         items.forEach((item) => {
-          let text = item.innerText.toLowerCase();
+          const text = normalizeText(item.innerText);
 
           if (text.includes(filter)) {
-            item.style.display = "block";
+            item.style.display = "flex"; // mantém layout original
           } else {
             item.style.display = "none";
           }

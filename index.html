@@ -308,6 +308,7 @@
           <a href="./index.html">🍽️ Cardapio do Restaurante</a>
           <a href="./piscinamenu.html">🍹 Piscina Menu</a>
           <a href="./roomservice.html">🛎️ Room Service</a>
+          <a href="./cartadevinhos.html">🍷 Carta de Vinhos</a>
         </div>
       </div>
 
@@ -443,7 +444,7 @@
         </div>
 
         <div class="item">
-          <img src="./imgs/atum.jpeg" alt="Atum" />
+          <img src="./imgs/tataki-atum.jpeg" alt="Atum" />
           <div class="item-info">
             <h3>Tataki de Atum <span class="price">R$ 86,00</span></h3>
             <p>Crosta de gergelim, tarê de rapadura e maionese de wasabi.</p>
@@ -452,7 +453,7 @@
 
         <div class="item">
           <img
-            src="https://plus.unsplash.com/premium_photo-1721830791498-ec809d9d94ec?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            src="./imgs/tropical.jpeg"
             alt="Tropical"
           />
           <div class="item-info">
@@ -542,11 +543,11 @@
 
         <div class="item">
           <img
-            src="https://plus.unsplash.com/premium_photo-1721830791498-ec809d9d94ec?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt="Cartola"
+            src="./imgs/doce-bananal.jpeg"
+            alt="Doce Bananal"
           />
           <div class="item-info">
-            <h3>Cartola Bananal <span class="price">R$ 27,00</span></h3>
+            <h3>Doce Bananal <span class="price">R$ 27,00</span></h3>
             <p>Queijo manteiga, banana, canela e doce de leite da fazenda.</p>
           </div>
         </div>
@@ -628,6 +629,8 @@
     </footer>
 
     <script>
+      /* COLLAPSER */
+
       function toggleMenu() {
         const collapser = document.getElementById("collapser");
         const arrow = document.getElementById("arrow");
@@ -637,20 +640,29 @@
         arrow.textContent = collapser.classList.contains("active") ? "▲" : "▼";
       }
 
+      /* REMOVE ACENTOS */
+
+      function normalizeText(text) {
+        return text
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+      }
+
       /* SEARCH */
 
       const search = document.getElementById("search");
 
       search.addEventListener("keyup", function () {
-        let filter = search.value.toLowerCase();
+        const filter = normalizeText(search.value);
 
-        let items = document.querySelectorAll(".item");
+        const items = document.querySelectorAll(".item");
 
         items.forEach((item) => {
-          let text = item.innerText.toLowerCase();
+          const text = normalizeText(item.innerText);
 
           if (text.includes(filter)) {
-            item.style.display = "flex";
+            item.style.display = "flex"; // mantém layout original
           } else {
             item.style.display = "none";
           }
