@@ -52,6 +52,209 @@ header img {
   height: 55px;
   object-fit: contain;
 }
+/* ==========================
+   HEADER SECTION
+========================== */
+
+.header-section {
+  width: 100%;
+  max-width: 800px;
+  overflow: hidden;
+}
+
+
+/* ==========================
+   OPÇÕES DO CARDÁPIO
+   SCROLL HORIZONTAL
+========================== */
+
+.menu-options {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  /* NÃO DEIXA OS ITENS QUEBRAREM */
+  flex-wrap: nowrap;
+
+  gap: 8px;
+
+  /* SCROLL PARA OS LADOS */
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  white-space: nowrap;
+
+  padding: 2px 0 6px;
+
+  /* ESCONDE COMPLETAMENTE A BARRA */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  /* SCROLL NATIVO NO CELULAR */
+  -webkit-overflow-scrolling: touch;
+
+  /* PERMITE ARRASTAR PARA OS LADOS */
+  touch-action: pan-x;
+}
+
+
+/* ESCONDE SCROLLBAR CHROME / EDGE / SAFARI */
+
+.menu-options::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+
+/* ==========================
+   OPÇÕES
+========================== */
+
+.menu-option {
+  flex: 0 0 auto;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  /* SEM BACKGROUND */
+  background: transparent;
+
+  color: #ffffff;
+
+  /* BORDA DE 8PX */
+  border: 8px solid transparent;
+
+  border-radius: 10px;
+
+  padding: 7px 14px;
+
+  text-decoration: none;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+
+/* ==========================
+   HOVER
+   BACKGROUND SOMENTE AO PASSAR
+========================== */
+
+.menu-option:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+
+/* ==========================
+   ACTIVE
+   SEM BACKGROUND
+========================== */
+
+.menu-option.active {
+  background: transparent;
+
+  border-color: transparent;
+}
+
+
+/* ACTIVE TAMBÉM GANHA
+   BACKGROUND SOMENTE NO HOVER */
+
+.menu-option.active:hover {
+  background: rgba(255, 255, 255, 0.12);
+
+  border-color: transparent;
+}
+
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media (max-width: 600px) {
+
+  .header-section {
+    width: 100%;
+    max-width: 100%;
+
+    overflow: hidden;
+  }
+
+
+  .menu-options {
+    width: 100%;
+
+    display: flex;
+
+    flex-wrap: nowrap;
+
+    align-items: center;
+
+    gap: 6px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    white-space: nowrap;
+
+    /* SEM BARRA VISÍVEL */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    -webkit-overflow-scrolling: touch;
+
+    /* ARRASTAR PARA ESQUERDA/DIREITA */
+    touch-action: pan-x;
+
+    padding:
+      2px 0 6px;
+  }
+
+
+  .menu-options::-webkit-scrollbar {
+    display: none;
+
+    width: 0;
+    height: 0;
+  }
+
+
+  .menu-option {
+    flex: 0 0 auto;
+
+    font-size: 13px;
+
+    padding: 6px 12px;
+
+    border: 8px solid transparent;
+
+    white-space: nowrap;
+  }
+
+
+  .menu-option:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+
+  .menu-option.active {
+    background: transparent;
+
+    border-color: transparent;
+  }
+
+}
 
 /* MENU COLLAPSE */
 .menu-collapse {
@@ -327,6 +530,23 @@ iframe.skiptranslate,
         </div>
       </div>
 
+      <!-- HEADER SECTION -->
+      <!-- MESMAS OPÇÕES DO CARDÁPIO, AGORA HORIZONTAIS -->
+
+      <section class="header-section">
+        <nav class="menu-options">
+          <a href="./index.html" class="menu-option active"> 🍽️ Restaurante </a>
+
+          <a href="./piscinamenu.html" class="menu-option"> 🍹 Piscina </a>
+
+          <a href="./roomservice.html" class="menu-option"> 🛎️ Room Service </a>
+
+          <a href="./cartadevinhos.html" class="menu-option">
+            🍷 Carta de Vinhos
+          </a>
+        </nav>
+      </section>
+
       <input
         type="text"
         id="search"
@@ -357,7 +577,7 @@ iframe.skiptranslate,
   <div class="item">
     <div class="item-header">
       <div class="item-left">
-        <img src="/imgs/vinhos/chandom-brut.jpeg" alt="Chandon Brut" class="item-image">
+        <img src="./imgs/vinhos/chandom-brut.jpeg" alt="Chandon Brut" class="item-image">
         <div class="item-info">
           <span class="origin">Brasil</span>
           <h3>Chandon Brut</h3>
@@ -371,11 +591,11 @@ iframe.skiptranslate,
   <div class="item">
     <div class="item-header">
       <div class="item-left">
-        <img src="./imgs/vinhos/faces-chardonnay.jpeg" alt="Faces Brut" class="item-image">
+        <!-- <img src="./imgs/vinhos/faces-brut.jpeg" alt="Faces Brut" class="item-image"> -->
         <div class="item-info">
           <span class="origin">Brasil</span>
           <h3>Faces Brut</h3>
-          <p>Encruzilhada do Sul / Lidio Carraro / Chardonnay, Pinot Noir, Riesling</p>
+          <p>Encruzilhada Do Sul / Lidio Carraro / Chardonnay, Pinot Noir, Riesling</p>
         </div>
       </div>
       <span class="price">R$ 119,00</span>
@@ -385,14 +605,42 @@ iframe.skiptranslate,
   <div class="item">
     <div class="item-header">
       <div class="item-left">
-        <img height="80" src="./imgs/vinhos/faces-rose.jpeg" alt="Faces Brut Rosé" class="item-image">
+        <img src="./imgs/vinhos/faces-rose.jpeg" alt="Faces Brut Rose" class="item-image">
         <div class="item-info">
           <span class="origin">Brasil</span>
-          <h3>Faces Brut Rosé</h3>
-          <p>Encruzilhada do Sul / Lidio Carraro / Pinot Noir</p>
+          <h3>Faces Brut Rose</h3>
+          <p>Encruzilhada Do Sul / Lidio Carraro / Pinot Noir</p>
         </div>
       </div>
       <span class="price">R$ 119,00</span>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-left">
+        <!-- <img src="./imgs/vinhos/faces-moscatel.jpeg" alt="Faces Moscatel" class="item-image"> -->
+        <div class="item-info">
+          <span class="origin">Brasil</span>
+          <h3>Faces Moscatel</h3>
+          <p>Encruzilhada Do Sul / Lidio Carraro / Moscato</p>
+        </div>
+      </div>
+      <span class="price">R$ 119,00</span>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-left">
+        <!-- <img src="./imgs/vinhos/luiz-argenta-la-jovem-brut.jpeg" alt="Luiz Argenta La Jovem Brut" class="item-image"> -->
+        <div class="item-info">
+          <span class="origin">Brasil</span>
+          <h3>Luiz Argenta La Jovem Brut</h3>
+          <p>IP Altos Montes / Luiz Argenta / Chardonnay, Riesling</p>
+        </div>
+      </div>
+      <span class="price">R$ 218,00</span>
     </div>
   </div>
 
@@ -405,7 +653,7 @@ iframe.skiptranslate,
         <div class="item-info">
           <span class="origin">França</span>
           <h3>Veuve Clicquot</h3>
-          <p>Reims / Chardonnay, Pinot Noir</p>
+          <p>Reims / Veuve Clicquot Ponsardin / Chardonnay, Pinot Noir</p>
         </div>
       </div>
       <span class="price">R$ 682,00</span>
@@ -419,7 +667,7 @@ iframe.skiptranslate,
         <div class="item-info">
           <span class="origin">França</span>
           <h3>Moët & Chandon</h3>
-          <p>Épernay / Pinot Noir, Chardonnay</p>
+          <p>Épernay / Moët & Chandon / Pinot Noir, Pinot Meunier, Chardonnay</p>
         </div>
       </div>
       <span class="price">R$ 720,00</span>
@@ -430,10 +678,12 @@ iframe.skiptranslate,
 <section class="section">
   <h2 class="section-title">Brancos</h2>
 
+  <h4 class="subsection-title">Novo Mundo</h4>
+
   <div class="item">
     <div class="item-header">
       <div class="item-left">
-        <img src="./imgs/vinhos/sinais.jpeg" alt="Sinais Riesling" class="item-image">
+        <img src="./imgs/vinhos/sinais.jpeg" alt="Sinais" class="item-image">
         <div class="item-info">
           <span class="origin">Brasil</span>
           <h3>Sinais</h3>
@@ -451,56 +701,110 @@ iframe.skiptranslate,
         <div class="item-info">
           <span class="origin">Argentina</span>
           <h3>Estancia Blend do Enólogo</h3>
-          <p>Valle de Uco / Chardonnay, Chenin Blanc</p>
+          <p>Valle De Uco / Bodega Estancia Mendoza / Chardonnay, Chenin Blanc</p>
         </div>
       </div>
       <span class="price">R$ 99,00</span>
     </div>
   </div>
-</section>
-
-<section class="section">
-  <h2 class="section-title">Tintos</h2>
 
   <div class="item">
     <div class="item-header">
       <div class="item-left">
-        <img src="./imgs/vinhos/amayan.jpeg" alt="Amayan Winemaker" class="item-image">
+        <!-- <img src="./imgs/vinhos/bestia-collection.jpeg" alt="Bestia Collection" class="item-image"> -->
         <div class="item-info">
-          <span class="origin">Argentina</span>
-          <h3>Amayan Winemaker</h3>
-          <p>Vale de Uco / Malbec</p>
+          <span class="origin">Chile</span>
+          <h3>Bestia Collection</h3>
+          <p>Vale Central / Bestia / Chardonnay</p>
         </div>
       </div>
-      <span class="price">R$ 140,00</span>
+      <span class="price">R$ 97,00</span>
     </div>
   </div>
 
   <div class="item">
     <div class="item-header">
       <div class="item-left">
-        <img src="./imgs/vinhos/porca-murica.jpeg" alt="Porca de Murça Reserva" class="item-image">
+        <!-- <img src="./imgs/vinhos/indomita-polero.jpeg" alt="Indomita Polero" class="item-image"> -->
+        <div class="item-info">
+          <span class="origin">Chile</span>
+          <h3>Indomita Polero</h3>
+          <p>Vale De Maipo / Viña Indomita / Sauvignon Blanc</p>
+        </div>
+      </div>
+      <span class="price">R$ 90,00</span>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-left">
+        <!-- <img src="./imgs/vinhos/faces-do-chile.jpeg" alt="Faces do Chile" class="item-image"> -->
+        <div class="item-info">
+          <span class="origin">Chile</span>
+          <h3>Faces do Chile</h3>
+          <p>Vale De Maipo / Lidio Carraro / Sauvignon Blanc</p>
+        </div>
+      </div>
+      <span class="price">R$ 118,00</span>
+    </div>
+  </div>
+
+  <h4 class="subsection-title">Velho Mundo</h4>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-left">
+        <!-- <img src="./imgs/vinhos/alem-do-mar.jpeg" alt="Alem do Mar" class="item-image"> -->
         <div class="item-info">
           <span class="origin">Portugal</span>
-          <h3>Porca de Murça Reserva</h3>
-          <p>Douro / Touriga Nacional</p>
+          <h3>Alem do Mar</h3>
+          <p>Lisboa / Arcos Do Rei / Aragonês, Syrah, Touriga Nacional</p>
         </div>
       </div>
-      <span class="price">R$ 280,00</span>
+      <span class="price">R$ 118,00</span>
     </div>
   </div>
 
   <div class="item">
     <div class="item-header">
       <div class="item-left">
-        <img src="./imgs/vinhos/sessantanni-primitivo.jpeg" alt="Sessantanni Vintage" class="item-image">
+        <!-- <img src="./imgs/vinhos/antico-rosone.jpeg" alt="Antico Rosone" class="item-image"> -->
         <div class="item-info">
-          <span class="origin">Itália</span>
-          <h3>Sessantanni Vintage</h3>
-          <p>Puglia / San Marzano / Primitivo</p>
+          <span class="origin">Portugal</span>
+          <h3>Antico Rosone</h3>
+          <p>Emilia Romagna / Caviro / Pinot Grigio</p>
         </div>
       </div>
-      <span class="price">R$ 450,00</span>
+      <span class="price">R$ 150,00</span>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-left">
+        <!-- <img src="./imgs/vinhos/adega-de-moncao-vinho-verde.jpeg" alt="Adega de Monção Vinho Verde" class="item-image"> -->
+        <div class="item-info">
+          <span class="origin">Itália</span>
+          <h3>Adega de Monção Vinho Verde</h3>
+          <p>Monção E Melgaço / Adega De Monção / Alvarinho, Trajadura</p>
+        </div>
+      </div>
+      <span class="price">R$ 150,00</span>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-left">
+        <img src="./imgs/vinhos/belo.jpeg" alt="Belo" class="item-image">
+        <div class="item-info">
+          <span class="origin">Espanha</span>
+          <h3>Belo</h3>
+          <p>Castilla Y León / Bodega Los Tinos / Verdejo</p>
+        </div>
+      </div>
+      <span class="price">R$ 98,00</span>
     </div>
   </div>
 </section>
@@ -593,7 +897,7 @@ iframe.skiptranslate,
         <div class="item-info">
           <span class="origin">Argentina</span>
           <h3>Amayan Winemaker</h3>
-          <p>Vale de Uco / Belhara Estate / Malbec</p>
+          <p>Vale de Uco / Malbec</p>
         </div>
       </div>
       <span class="price">R$ 140,00</span>
@@ -717,25 +1021,11 @@ iframe.skiptranslate,
   <div class="item">
     <div class="item-header">
       <div class="item-left">
-        <img src="./imgs/vinhos/porca-murica.jpeg" alt="Porca de Murça Colheita" class="item-image">
-        <div class="item-info">
-          <span class="origin">Portugal</span>
-          <h3>Porca de Murça Colheita</h3>
-          <p>Douro / Real Companhia Velha / Tinta B., Tinta R., Touriga F., Touriga N.</p>
-        </div>
-      </div>
-      <span class="price">R$ 160,00</span>
-    </div>
-  </div>
-
-  <div class="item">
-    <div class="item-header">
-      <div class="item-left">
-        <img src="./imgs/vinhos/porca-murca.jpeg" alt="Porca de Murça Reserva" class="item-image">
+        <img src="./imgs/vinhos/porca-murica.jpeg" alt="Porca de Murça Reserva" class="item-image">
         <div class="item-info">
           <span class="origin">Portugal</span>
           <h3>Porca de Murça Reserva</h3>
-          <p>Douro / Real Companhia Velha / Tinta R., Touriga F., Touriga N.</p>
+          <p>Douro / Touriga Nacional</p>
         </div>
       </div>
       <span class="price">R$ 280,00</span>
@@ -787,7 +1077,7 @@ iframe.skiptranslate,
   <div class="item">
     <div class="item-header">
       <div class="item-left">
-        <img src="https://plus.unsplash.com/premium_photo-1721830791498-ec809d9d94ec?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sessantanni Vintage" class="item-image">
+        <img src="./imgs/vinhos/sessantanni-primitivo.jpeg" alt="Sessantanni Vintage" class="item-image">
         <div class="item-info">
           <span class="origin">Itália</span>
           <h3>Sessantanni Vintage</h3>
@@ -861,7 +1151,7 @@ iframe.skiptranslate,
   <div class="item">
     <div class="item-header">
       <div class="item-left">
-        <img src="https://plus.unsplash.com/premium_photo-1721830791498-ec809d9d94ec?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Alto Tierruca Sauvignon Blanc" class="item-image">
+        <img src="./imgs/vinhos/meia-branco.jpeg" alt="Alto Tierruca Sauvignon Blanc" class="item-image">
         <div class="item-info">
           <span class="origin">Chile</span>
           <h3>Alto Tierruca Sauvignon Blanc</h3>
@@ -1144,7 +1434,1248 @@ function googleTranslateElementInit() {
     }, 500);
 }
 </script>
+<script>
+(function () {
 
+  /*
+  ============================================================
+  🍷 SALSA IT — MODAL INTELIGENTE DA CARTA DE VINHOS
+  ============================================================
+  Frontend only
+  Sem backend
+  Compatível com Vercel
+  ============================================================
+  */
+
+  const wineData = {
+
+    "chandon brut|brasil": {
+      resumo:
+        "Um espumante brasileiro de perfil elegante e refrescante, pensado para celebrar e acompanhar diferentes momentos da gastronomia.",
+
+      historia:
+        "Produzido na Serra Gaúcha, região brasileira reconhecida pela elaboração de espumantes, o Chandon Brut representa a tradição de uma casa internacional adaptada ao terroir brasileiro.",
+
+      notas:
+        "Fresco, equilibrado e aromático, apresenta características de frutas e boa vivacidade. As uvas Chardonnay, Pinot Noir e Riesling contribuem para um conjunto leve e gastronômico."
+    },
+
+    "faces brut|brasil": {
+      resumo:
+        "Espumante brasileiro de proposta elegante, com perfil fresco e versátil para acompanhar entradas, frutos do mar e celebrações.",
+
+      historia:
+        "Elaborado pela Lidio Carraro, vinícola brasileira conhecida por trabalhar a identidade do terroir da Serra Gaúcha com uma abordagem de mínima intervenção.",
+
+      notas:
+        "As uvas Chardonnay, Pinot Noir e Riesling proporcionam frescor, aromas delicados e equilíbrio. Uma escolha versátil para iniciar uma refeição."
+    },
+
+    "faces brut rose|brasil": {
+      resumo:
+        "Um espumante rosé de visual delicado e perfil refrescante, ideal para quem busca uma opção elegante e descontraída.",
+
+      historia:
+        "Produzido pela Lidio Carraro, o rótulo expressa a tradição brasileira na elaboração de espumantes a partir de uvas cultivadas na Serra Gaúcha.",
+
+      notas:
+        "Elaborado com Pinot Noir, apresenta frescor, fruta e delicadeza. Seu estilo combina especialmente bem com aperitivos, pratos leves e frutos do mar."
+    },
+
+    "faces moscatel|brasil": {
+      resumo:
+        "Um espumante de estilo aromático e naturalmente mais doce, indicado para quem aprecia vinhos delicados e expressivos.",
+
+      historia:
+        "O Moscatel ocupa um espaço especial na tradição brasileira de espumantes, especialmente na Serra Gaúcha, onde a uva Moscato encontrou condições favoráveis para desenvolver aromas intensos.",
+
+      notas:
+        "A uva Moscato proporciona aromas florais e frutados marcantes, com doçura equilibrada pela acidez. Excelente opção para sobremesas e momentos descontraídos."
+    },
+
+    "luiz argenta la jovem brut|brasil": {
+      resumo:
+        "Espumante brasileiro de perfil sofisticado, combinando frescor e elegância em uma proposta gastronômica.",
+
+      historia:
+        "A Luiz Argenta é uma vinícola localizada nos Altos Montes, uma das regiões de destaque da Serra Gaúcha. O rótulo representa a evolução da produção de vinhos finos brasileiros.",
+
+      notas:
+        "Chardonnay e Riesling contribuem para aromas frutados e florais, enquanto a estrutura proporciona frescor e equilíbrio. Ideal para aperitivos e pratos delicados."
+    },
+
+    "veuve clicquot|frança": {
+      resumo:
+        "Um dos champagnes mais reconhecidos do mundo, marcado por elegância, identidade e uma longa tradição na região de Champagne.",
+
+      historia:
+        "A Maison Veuve Clicquot tem uma história profundamente ligada à região de Reims. A marca ganhou notoriedade sob a liderança de Madame Clicquot, figura histórica do Champagne.",
+
+      notas:
+        "A combinação de Chardonnay e Pinot Noir proporciona equilíbrio entre frescor, estrutura e complexidade. Apresenta perfil elegante e persistente."
+    },
+
+    "moët & chandon|frança": {
+      resumo:
+        "Um Champagne de grande reconhecimento internacional, associado à celebração, elegância e tradição francesa.",
+
+      historia:
+        "A Maison Moët & Chandon possui uma trajetória secular em Épernay, no coração de Champagne. Seu nome tornou-se referência mundial na produção de espumantes franceses.",
+
+      notas:
+        "O corte de Pinot Noir, Pinot Meunier e Chardonnay busca equilíbrio entre fruta, frescor e estrutura, resultando em um Champagne versátil e gastronômico."
+    },
+
+    "sinais|brasil": {
+      resumo:
+        "Um vinho brasileiro que valoriza a expressão da Serra Gaúcha através da uva Riesling.",
+
+      historia:
+        "Produzido pela Don Guerino, o rótulo vem de Alto Feliz, região da Serra Gaúcha conhecida pelo desenvolvimento de vinhos de diferentes estilos.",
+
+      notas:
+        "A Riesling costuma apresentar acidez vibrante e aromas cítricos e florais, resultando em um vinho refrescante e excelente para acompanhar pratos leves."
+    },
+
+    "estancia blend do enólogo|argentina": {
+      resumo:
+        "Um blend argentino que combina diferentes características aromáticas e estruturais para criar um vinho equilibrado.",
+
+      historia:
+        "Produzido na região de Mendoza, uma das áreas vitivinícolas mais importantes da Argentina, o rótulo expressa a tradição dos vinhos de altitude do país.",
+
+      notas:
+        "Chardonnay e Chenin Blanc contribuem com fruta, frescor e aromas delicados. Uma opção versátil para entradas e pratos leves."
+    },
+
+    "bestia collection|chile": {
+      resumo:
+        "Um vinho chileno de perfil moderno e acessível, elaborado para valorizar a expressão da uva Chardonnay.",
+
+      historia:
+        "O Vale Central é uma das regiões mais importantes da viticultura chilena, oferecendo condições favoráveis para uma produção ampla e consistente.",
+
+      notas:
+        "Chardonnay apresenta normalmente aromas de frutas brancas e tropicais, com acidez refrescante e textura agradável."
+    },
+
+    "indomita polero|chile": {
+      resumo:
+        "Um Sauvignon Blanc chileno de perfil refrescante, indicado para quem procura vivacidade e aromas marcantes.",
+
+      historia:
+        "A Viña Indomita trabalha diferentes regiões chilenas, explorando a diversidade de terroirs do país e sua forte vocação para vinhos brancos.",
+
+      notas:
+        "Sauvignon Blanc costuma apresentar notas cítricas, herbáceas e tropicais, acompanhadas de acidez vibrante. Excelente com frutos do mar."
+    },
+
+    "faces do chile|chile": {
+      resumo:
+        "Um vinho chileno produzido pela Lidio Carraro, combinando identidade regional e uma proposta gastronômica.",
+
+      historia:
+        "A vinícola brasileira Lidio Carraro também desenvolveu projetos com uvas de diferentes terroirs, explorando a personalidade vitivinícola do Chile.",
+
+      notas:
+        "O Cabernet Sauvignon apresenta estrutura, fruta escura e taninos característicos, tornando-se uma boa escolha para carnes e pratos mais intensos."
+    },
+
+    "alem do mar|portugal": {
+      resumo:
+        "Um vinho português que reúne diferentes castas tradicionais em um corte de personalidade mediterrânea.",
+
+      historia:
+        "A região de Lisboa possui longa tradição vitivinícola e grande diversidade de castas. O rótulo representa essa característica através de um blend português.",
+
+      notas:
+        "Aragonês, Syrah e Touriga Nacional podem oferecer fruta madura, especiarias e estrutura, formando um vinho gastronômico."
+    },
+
+    "antico rosone|itália": {
+      resumo:
+        "Um vinho italiano que expressa a tradição das castas mediterrâneas através de uma proposta gastronômica e acessível.",
+
+      historia:
+        "Produzido pela Caviro, o rótulo está associado à diversidade vitivinícola italiana, país conhecido pela enorme variedade de uvas e regiões produtoras.",
+
+      notas:
+        "O perfil varia conforme a uva utilizada, mas a proposta busca fruta, equilíbrio e boa harmonização com pratos italianos e carnes."
+    },
+
+    "adega de monção vinho verde|portugal": {
+      resumo:
+        "Um vinho verde português conhecido pelo frescor e pela vocação gastronômica.",
+
+      historia:
+        "A região de Monção e Melgaço, no norte de Portugal, é especialmente reconhecida pela produção de vinhos associados à casta Alvarinho.",
+
+      notas:
+        "Alvarinho e Trajadura proporcionam frescor, notas cítricas e frutadas. Excelente acompanhamento para frutos do mar, peixes e entradas."
+    },
+
+    "belo|espanha": {
+      resumo:
+        "Um vinho espanhol de perfil fresco e frutado, representando a diversidade da região de Castilla y León.",
+
+      historia:
+        "Castilla y León é uma importante região vitivinícola espanhola, marcada por grande diversidade de terroirs e castas tradicionais.",
+
+      notas:
+        "Quando elaborado com Verdejo, apresenta frescor, frutas cítricas e notas herbáceas. Na versão tinta com Tempranillo, ganha estrutura e fruta escura."
+    },
+
+    "faces do brasil|brasil": {
+      resumo:
+        "Um rosé brasileiro de perfil fresco, frutado e elegante.",
+
+      historia:
+        "Produzido na Encruzilhada do Sul pela Lidio Carraro, o vinho representa a capacidade brasileira de produzir rosés gastronômicos e refrescantes.",
+
+      notas:
+        "A Pinot Noir contribui para delicadeza, fruta vermelha e frescor. Ideal para dias quentes, entradas e pratos leves."
+    },
+
+    "sinais|malbec": {
+      resumo:
+        "Um Malbec brasileiro que apresenta uma interpretação nacional de uma das uvas mais emblemáticas da Argentina.",
+
+      historia:
+        "A Don Guerino desenvolve seus vinhos na Serra Gaúcha, região que demonstra grande diversidade de castas e estilos.",
+
+      notas:
+        "Malbec tende a apresentar fruta escura, especiarias e taninos macios, criando um vinho interessante para carnes e pratos de maior intensidade."
+    },
+
+    "estancia varietal|argentina": {
+      resumo:
+        "Um Cabernet Sauvignon argentino de perfil estruturado e frutado.",
+
+      historia:
+        "Mendoza é o grande centro vitivinícola argentino e uma das regiões de altitude mais reconhecidas do mundo para a produção de vinhos.",
+
+      notas:
+        "Cabernet Sauvignon oferece fruta escura, taninos e notas de especiarias, sendo uma escolha natural para carnes vermelhas."
+    },
+
+    "amayan winemaker|argentina": {
+      resumo:
+        "Um Malbec argentino associado ao terroir de altitude do Vale de Uco.",
+
+      historia:
+        "O Vale de Uco tornou-se uma das regiões mais valorizadas de Mendoza, especialmente pela combinação de altitude, amplitude térmica e solos diversos.",
+
+      notas:
+        "Malbec de altitude pode apresentar fruta intensa, frescor, estrutura e taninos bem definidos."
+    },
+
+    "vistoso|argentina": {
+      resumo:
+        "Um Malbec argentino de San Juan, região conhecida pelo clima seco e ensolarado.",
+
+      historia:
+        "San Juan é uma das principais regiões produtoras da Argentina e possui tradição na elaboração de vinhos tintos de fruta expressiva.",
+
+      notas:
+        "Malbec costuma apresentar ameixa, frutas negras e especiarias, com corpo médio a encorpado e taninos agradáveis."
+    },
+
+    "bestia collection cabernet|chile": {
+      resumo:
+        "Cabernet Sauvignon chileno de perfil frutado e estruturado.",
+
+      historia:
+        "O Vale Central concentra grande parte da produção vitivinícola chilena e oferece condições favoráveis para castas internacionais.",
+
+      notas:
+        "Frutas negras, especiarias e taninos característicos do Cabernet Sauvignon fazem deste vinho uma opção interessante para carnes."
+    },
+
+    "bestia collection carménère|chile": {
+      resumo:
+        "Uma expressão chilena da Carménère, uva que se tornou uma das grandes representantes do Chile.",
+
+      historia:
+        "A Carménère encontrou no Chile condições ideais para seu desenvolvimento e tornou-se uma das castas mais emblemáticas do país.",
+
+      notas:
+        "Pode apresentar frutas vermelhas e negras, ervas, especiarias e taninos macios. Combina muito bem com carnes e pratos condimentados."
+    },
+
+    "alto tierruca reserva|chile": {
+      resumo:
+        "Pinot Noir chileno de perfil delicado, fresco e aromático.",
+
+      historia:
+        "O Vale de Colchagua é conhecido principalmente por seus tintos, mas também permite o desenvolvimento de diferentes castas em áreas adequadas.",
+
+      notas:
+        "Pinot Noir costuma apresentar frutas vermelhas, delicadeza, acidez e taninos mais suaves."
+    },
+
+    "arcos da vinha colheita|portugal": {
+      resumo:
+        "Um corte português que reúne diferentes castas tradicionais do Dão.",
+
+      historia:
+        "O Dão é uma das regiões históricas de Portugal, reconhecida por seus vinhos elegantes e pela diversidade de castas autóctones.",
+
+      notas:
+        "Alfrocheiro, Jaen, Tinta Roriz e Touriga Nacional contribuem com fruta, estrutura, aromas e personalidade."
+    },
+
+    "além do mar|portugal": {
+      resumo:
+        "Um vinho português de Lisboa que combina castas tradicionais e internacionais em um perfil gastronômico.",
+
+      historia:
+        "A região de Lisboa apresenta uma das maiores diversidades vitivinícolas de Portugal, com influência atlântica em diferentes áreas produtoras.",
+
+      notas:
+        "Touriga Nacional e Aragonês podem proporcionar fruta madura, especiarias e estrutura equilibrada."
+    },
+
+    "monte dos perdigões colheita|portugal": {
+      resumo:
+        "Um vinho alentejano de perfil intenso, estruturado e gastronômico.",
+
+      historia:
+        "O Alentejo é uma das regiões vinícolas mais conhecidas de Portugal, marcada por clima quente e uma forte tradição na produção de tintos.",
+
+      notas:
+        "Aragonês, Cabernet Sauvignon e Trincadeira formam um conjunto com fruta madura, especiarias e estrutura."
+    },
+
+    "porca de murça reserva|portugal": {
+      resumo:
+        "Um vinho do Douro de personalidade marcante, elaborado em uma das regiões vitivinícolas mais famosas de Portugal.",
+
+      historia:
+        "O Douro possui uma das paisagens vitivinícolas mais emblemáticas do mundo, com vinhedos plantados em encostas ao longo do rio Douro.",
+
+      notas:
+        "A Touriga Nacional contribui com concentração, aromas de frutas escuras, flores e estrutura. Excelente com carnes."
+    },
+
+    "antico rosone primitivo|itália": {
+      resumo:
+        "Um Primitivo italiano de perfil intenso, frutado e envolvente.",
+
+      historia:
+        "A Puglia, no sul da Itália, é uma das regiões mais associadas à Primitivo, uva conhecida por produzir tintos de grande expressão frutada.",
+
+      notas:
+        "Frutas negras maduras, ameixa e especiarias são características comuns. Corpo generoso e taninos macios favorecem carnes e massas."
+    },
+
+    "casa dei fanti|itália": {
+      resumo:
+        "Um vinho italiano de perfil gastronômico, produzido na Puglia.",
+
+      historia:
+        "A Puglia possui forte tradição na produção de vinhos tintos e clima mediterrâneo favorável ao amadurecimento das uvas.",
+
+      notas:
+        "Montepulciano costuma apresentar frutas escuras, especiarias e estrutura equilibrada."
+    },
+
+    "antico rosone sangiovese|itália": {
+      resumo:
+        "Uma expressão italiana da Sangiovese, uma das castas mais importantes da viticultura italiana.",
+
+      historia:
+        "A Sangiovese é uma das uvas mais tradicionais da Itália, especialmente associada a regiões como Toscana e Emilia-Romagna.",
+
+      notas:
+        "Pode apresentar frutas vermelhas, acidez marcante, ervas e especiarias. Sua acidez natural favorece muito a harmonização com massas e carnes."
+    },
+
+    "sessantanni vintage|itália": {
+      resumo:
+        "Um Primitivo italiano de proposta mais sofisticada e intensa, produzido em Puglia.",
+
+      historia:
+        "A San Marzano tornou-se uma referência na valorização dos vinhos do sul da Itália, especialmente aqueles produzidos com uvas tradicionais da Puglia.",
+
+      notas:
+        "Primitivo oferece frutas negras maduras, ameixa, especiarias e estrutura. Um vinho de presença marcante e longa persistência."
+    },
+
+    "amarone della valpolicella classico 2007|itália": {
+      resumo:
+        "Um dos estilos mais emblemáticos do Veneto, conhecido pela concentração, complexidade e personalidade.",
+
+      historia:
+        "O Amarone della Valpolicella é produzido a partir de uvas parcialmente desidratadas antes da fermentação, uma técnica tradicional que concentra açúcares e sabores.",
+
+      notas:
+        "Corvina, Rondinella e Molinara podem produzir aromas de frutas maduras, especiarias, chocolate e notas complexas de evolução."
+    },
+
+    "frontaura crianza|espanha": {
+      resumo:
+        "Um vinho espanhol de estilo Crianza, marcado pela presença da Tempranillo e pela influência do amadurecimento.",
+
+      historia:
+        "A região de Toro possui tradição histórica na produção de vinhos tintos a partir de Tempranillo, conhecida localmente por sua força e concentração.",
+
+      notas:
+        "Frutas maduras, especiarias e notas provenientes da madeira podem formar um perfil estruturado e elegante."
+    },
+
+    "nexus crianza|espanha": {
+      resumo:
+        "Um tinto espanhol de Ribera del Duero elaborado a partir da Tempranillo.",
+
+      historia:
+        "Ribera del Duero é uma das regiões espanholas mais reconhecidas por seus tintos de altitude e grande capacidade de envelhecimento.",
+
+      notas:
+        "Tempranillo oferece frutas escuras, especiarias e estrutura. O estilo Crianza acrescenta complexidade e notas de amadurecimento."
+    },
+
+    "alto tierruca sauvignon blanc|chile": {
+      resumo:
+        "Sauvignon Blanc chileno de perfil leve, fresco e aromático.",
+
+      historia:
+        "O Chile possui forte reputação internacional na produção de Sauvignon Blanc, especialmente graças à influência marítima e às amplitudes térmicas.",
+
+      notas:
+        "Cítricos, frutas tropicais e notas herbáceas são características frequentes. Excelente para frutos do mar e entradas."
+    },
+
+    "alto tierruca reserva carmenere|chile": {
+      resumo:
+        "Carménère chilena de perfil frutado e macio.",
+
+      historia:
+        "A Carménère tornou-se uma das grandes identidades do vinho chileno após ser redescoberta no país no século XX.",
+
+      notas:
+        "Frutas vermelhas e negras, ervas e especiarias podem aparecer em um vinho de taninos geralmente macios e boa presença gastronômica."
+    },
+
+    "porto menerez tawny|portugal": {
+      resumo:
+        "Um vinho do Porto no estilo Tawny, servido em pequena quantidade e ideal para finalizar a experiência.",
+
+      historia:
+        "O vinho do Porto é uma das grandes especialidades de Portugal e está profundamente ligado à região do Douro e à tradição de envelhecimento em madeira.",
+
+      notas:
+        "O estilo Tawny costuma apresentar frutas secas, caramelo, frutos secos e especiarias, com textura envolvente e final persistente."
+    }
+
+  };
+
+
+  /* ============================================================
+     CSS
+  ============================================================ */
+
+  const style = document.createElement("style");
+
+  style.textContent = `
+    .wine-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9999999;
+
+      display: none;
+      align-items: center;
+      justify-content: center;
+
+      padding: 18px;
+
+      background: rgba(0, 0, 0, .78);
+
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .wine-modal.active {
+      display: flex;
+      animation: wineFade .25s ease;
+    }
+
+    .wine-modal-content {
+      position: relative;
+
+      width: 100%;
+      max-width: 560px;
+
+      max-height: 94vh;
+
+      overflow-y: auto;
+
+      background: #fff;
+
+      border-radius: 24px;
+
+      box-shadow:
+        0 30px 100px rgba(0,0,0,.45);
+
+      animation: wineUp .3s ease;
+    }
+
+    .wine-modal-close {
+      position: absolute;
+
+      top: 14px;
+      right: 14px;
+
+      z-index: 10;
+
+      width: 42px;
+      height: 42px;
+
+      border: 0;
+      border-radius: 50%;
+
+      background: rgba(0,0,0,.65);
+      color: #fff;
+
+      font-size: 27px;
+
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      transition: .2s ease;
+    }
+
+    .wine-modal-close:hover {
+      transform: scale(1.08);
+      background: #000;
+    }
+
+    .wine-modal-image-area {
+      min-height: 390px;
+
+      padding: 35px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background:
+        radial-gradient(
+          circle at center,
+          #ffffff 0%,
+          #f3f5f4 55%,
+          #e6ebe8 100%
+        );
+    }
+
+    .wine-modal-image {
+      width: auto;
+      max-width: 100%;
+      height: 360px;
+
+      object-fit: contain;
+
+      filter:
+        drop-shadow(
+          0 22px 22px rgba(0,0,0,.22)
+        );
+
+      transition: transform .3s ease;
+    }
+
+    .wine-modal-image:hover {
+      transform: scale(1.04);
+    }
+
+    .wine-modal-body {
+      padding: 28px;
+    }
+
+    .wine-modal-country {
+      display: inline-block;
+
+      margin-bottom: 7px;
+
+      color: #2f4f3f;
+
+      font-size: 11px;
+      font-weight: 800;
+
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .wine-modal-title {
+      margin: 0 0 8px;
+
+      color: #18231d;
+
+      font-family: Georgia, serif;
+
+      font-size: 29px;
+      line-height: 1.15;
+    }
+
+    .wine-modal-meta {
+      margin-bottom: 18px;
+
+      color: #68746d;
+
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .wine-modal-price {
+      display: inline-block;
+
+      margin-bottom: 22px;
+      padding: 8px 14px;
+
+      border-radius: 30px;
+
+      background: #2f4f3f;
+      color: #fff;
+
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .wine-info-block {
+      margin-top: 18px;
+      padding-top: 18px;
+
+      border-top: 1px solid #e3e9e5;
+    }
+
+    .wine-info-title {
+      margin-bottom: 7px;
+
+      color: #2f4f3f;
+
+      font-size: 12px;
+      font-weight: 900;
+
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .wine-info-text {
+      color: #59645e;
+
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .wine-search-button {
+      width: 100%;
+
+      margin-top: 25px;
+      padding: 14px 18px;
+
+      border: 0;
+      border-radius: 12px;
+
+      background: #2f4f3f;
+      color: #fff;
+
+      font-size: 14px;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition: .2s ease;
+    }
+
+    .wine-search-button:hover {
+      transform: translateY(-1px);
+      opacity: .92;
+    }
+
+    .wine-no-image {
+      color: #7b8580;
+      font-size: 14px;
+    }
+
+    .item {
+      cursor: pointer;
+    }
+
+    @keyframes wineFade {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes wineUp {
+      from {
+        opacity: 0;
+        transform: translateY(25px) scale(.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .wine-modal {
+        padding: 10px;
+      }
+
+      .wine-modal-content {
+        max-height: 95vh;
+        border-radius: 20px;
+      }
+
+      .wine-modal-image-area {
+        min-height: 330px;
+        padding: 25px;
+      }
+
+      .wine-modal-image {
+        height: 300px;
+      }
+
+      .wine-modal-body {
+        padding: 22px;
+      }
+
+      .wine-modal-title {
+        font-size: 25px;
+      }
+    }
+  `;
+
+  document.head.appendChild(style);
+
+
+  /* ============================================================
+     HTML DO MODAL
+  ============================================================ */
+
+  const modal = document.createElement("div");
+
+  modal.className = "wine-modal";
+
+  modal.innerHTML = `
+
+    <div class="wine-modal-content">
+
+      <button
+        class="wine-modal-close"
+        type="button"
+        aria-label="Fechar"
+      >
+        ×
+      </button>
+
+      <div class="wine-modal-image-area">
+
+        <img
+          class="wine-modal-image"
+          src=""
+          alt=""
+        />
+
+        <div
+          class="wine-no-image"
+          style="display:none"
+        >
+          🍷 Imagem não disponível
+        </div>
+
+      </div>
+
+      <div class="wine-modal-body">
+
+        <span class="wine-modal-country"></span>
+
+        <h2 class="wine-modal-title"></h2>
+
+        <div class="wine-modal-meta"></div>
+
+        <div class="wine-modal-price"></div>
+
+
+        <div class="wine-info-block">
+
+          <div class="wine-info-title">
+            ✨ Curiosidade
+          </div>
+
+          <div
+            class="wine-info-text"
+            data-wine="resumo"
+          ></div>
+
+        </div>
+
+
+        <div class="wine-info-block">
+
+          <div class="wine-info-title">
+            🏛️ História & Origem
+          </div>
+
+          <div
+            class="wine-info-text"
+            data-wine="historia"
+          ></div>
+
+        </div>
+
+
+        <div class="wine-info-block">
+
+          <div class="wine-info-title">
+            👃 Notas & Características
+          </div>
+
+          <div
+            class="wine-info-text"
+            data-wine="notas"
+          ></div>
+
+        </div>
+
+
+        <button
+          class="wine-search-button"
+          type="button"
+        >
+          🔎 Pesquisar mais sobre este vinho
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+  document.body.appendChild(modal);
+
+
+  /* ============================================================
+     ELEMENTOS
+  ============================================================ */
+
+  const image =
+    modal.querySelector(".wine-modal-image");
+
+  const noImage =
+    modal.querySelector(".wine-no-image");
+
+  const country =
+    modal.querySelector(".wine-modal-country");
+
+  const title =
+    modal.querySelector(".wine-modal-title");
+
+  const meta =
+    modal.querySelector(".wine-modal-meta");
+
+  const price =
+    modal.querySelector(".wine-modal-price");
+
+  const resumo =
+    modal.querySelector('[data-wine="resumo"]');
+
+  const historia =
+    modal.querySelector('[data-wine="historia"]');
+
+  const notas =
+    modal.querySelector('[data-wine="notas"]');
+
+  const searchButton =
+    modal.querySelector(".wine-search-button");
+
+  const closeButton =
+    modal.querySelector(".wine-modal-close");
+
+
+  let currentSearch = "";
+
+
+  /* ============================================================
+     NORMALIZA TEXTO
+  ============================================================ */
+
+  function normalize(text) {
+
+    return (text || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+
+  }
+
+
+  /* ============================================================
+     ENCONTRA CURIOSIDADE
+  ============================================================ */
+
+  function findWineData(name, countryName) {
+
+    const nameNormalized =
+      normalize(name);
+
+    const countryNormalized =
+      normalize(countryName);
+
+    const exactKey =
+      `${nameNormalized}|${countryNormalized}`;
+
+    if (wineData[exactKey]) {
+      return wineData[exactKey];
+    }
+
+    /*
+      Fallback apenas pelo nome.
+    */
+
+    const possibleKey =
+      Object.keys(wineData)
+        .find(key =>
+          key.startsWith(nameNormalized + "|")
+        );
+
+    return possibleKey
+      ? wineData[possibleKey]
+      : null;
+
+  }
+
+
+  /* ============================================================
+     ABRIR MODAL
+  ============================================================ */
+
+  function openModal(item) {
+
+    if (!item) return;
+
+
+    const img =
+      item.querySelector("img");
+
+    const h3 =
+      item.querySelector("h3");
+
+    const paragraph =
+      item.querySelector("p");
+
+    const priceElement =
+      item.querySelector(".price");
+
+
+    /*
+      Extrai o nome sem o preço.
+    */
+
+    let wineName = "";
+
+    if (h3) {
+
+      const clone =
+        h3.cloneNode(true);
+
+      const clonePrice =
+        clone.querySelector(".price");
+
+      if (clonePrice) {
+        clonePrice.remove();
+      }
+
+      wineName =
+        clone.textContent.trim();
+
+    }
+
+
+    /*
+      País / região.
+      O HTML da carta possui o país
+      como texto antes do título.
+    */
+
+    const section =
+      item.closest(".section");
+
+    let countryName = "";
+
+    if (section) {
+
+      const text =
+        item.parentElement?.innerText || "";
+
+      /*
+        Procura o país através do conteúdo
+        visível do card.
+      */
+
+      const countries = [
+        "Brasil",
+        "França",
+        "Argentina",
+        "Chile",
+        "Portugal",
+        "Itália",
+        "Espanha"
+      ];
+
+      countryName =
+        countries.find(c =>
+          normalize(text).includes(normalize(c))
+        ) || "";
+
+    }
+
+
+    /*
+      Dados principais
+    */
+
+    title.textContent =
+      wineName || "Vinho";
+
+    price.textContent =
+      priceElement?.textContent?.trim() || "";
+
+    meta.textContent =
+      paragraph?.textContent?.trim() || "";
+
+    country.textContent =
+      countryName;
+
+
+    /*
+      IMAGEM
+    */
+
+    if (img && img.src) {
+
+      image.src = img.src;
+
+      image.alt =
+        wineName || "Vinho";
+
+      image.style.display = "block";
+
+      noImage.style.display = "none";
+
+    } else {
+
+      image.src = "";
+
+      image.style.display = "none";
+
+      noImage.style.display = "block";
+
+    }
+
+
+    /*
+      CURIOSIDADES
+    */
+
+    const data =
+      findWineData(
+        wineName,
+        countryName
+      );
+
+
+    if (data) {
+
+      resumo.textContent =
+        data.resumo;
+
+      historia.textContent =
+        data.historia;
+
+      notas.textContent =
+        data.notas;
+
+    } else {
+
+      resumo.textContent =
+        "Uma seleção especial da nossa carta, escolhida para proporcionar uma experiência gastronômica diferenciada.";
+
+      historia.textContent =
+        "Este rótulo representa uma região e uma tradição vitivinícola que podem ser exploradas em diferentes estilos e harmonizações.";
+
+      notas.textContent =
+        meta.textContent ||
+        "Consulte nossa equipe para conhecer mais detalhes sobre o perfil deste vinho.";
+
+    }
+
+
+    /*
+      PESQUISA DO GOOGLE
+    */
+
+    currentSearch =
+      `${wineName} ${countryName} vinho`;
+
+
+    /*
+      ABRE
+    */
+
+    modal.classList.add("active");
+
+    document.body.style.overflow = "hidden";
+
+  }
+
+
+  /* ============================================================
+     FECHAR
+  ============================================================ */
+
+  function closeModal() {
+
+    modal.classList.remove("active");
+
+    document.body.style.overflow = "";
+
+  }
+
+
+  /* ============================================================
+     CLIQUE NOS VINHOS
+  ============================================================ */
+
+  document.addEventListener(
+    "click",
+    function (event) {
+
+      const item =
+        event.target.closest(".item");
+
+      if (!item) return;
+
+
+      /*
+        Não intercepta elementos interativos.
+      */
+
+      if (
+        event.target.closest("a") ||
+        event.target.closest("button") ||
+        event.target.closest("input")
+      ) {
+
+        /*
+          Como suas imagens atualmente
+          podem estar dentro de links,
+          precisamos permitir o modal mesmo
+          quando o cliente toca na imagem.
+
+          Portanto, somente ignoramos botões
+          e inputs.
+        */
+
+        if (
+          event.target.closest("button") ||
+          event.target.closest("input")
+        ) {
+          return;
+        }
+
+      }
+
+
+      event.preventDefault();
+
+      openModal(item);
+
+    }
+  );
+
+
+  /* ============================================================
+     PESQUISAR NO GOOGLE
+  ============================================================ */
+
+  searchButton.addEventListener(
+    "click",
+    function () {
+
+      if (!currentSearch) return;
+
+      const query =
+        encodeURIComponent(currentSearch);
+
+      window.open(
+        `https://www.google.com/search?q=${query}`,
+        "_blank",
+        "noopener,noreferrer"
+      );
+
+    }
+  );
+
+
+  /* ============================================================
+     FECHAR
+  ============================================================ */
+
+  closeButton.addEventListener(
+    "click",
+    closeModal
+  );
+
+
+  modal.addEventListener(
+    "click",
+    function (event) {
+
+      if (
+        event.target === modal
+      ) {
+
+        closeModal();
+
+      }
+
+    }
+  );
+
+
+  /* ============================================================
+     ESC
+  ============================================================ */
+
+  document.addEventListener(
+    "keydown",
+    function (event) {
+
+      if (
+        event.key === "Escape" &&
+        modal.classList.contains("active")
+      ) {
+
+        closeModal();
+
+      }
+
+    }
+  );
+
+})();
+</script>
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>s
   </body>
 </html>

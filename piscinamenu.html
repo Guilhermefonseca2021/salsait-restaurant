@@ -55,6 +55,194 @@
         object-fit: cover;
       }
 
+      /* ==========================
+   HEADER SECTION
+========================== */
+
+      .header-section {
+        width: 100%;
+        max-width: 800px;
+        overflow: hidden;
+      }
+
+      /* ==========================
+   OPÇÕES DO CARDÁPIO
+   SCROLL HORIZONTAL
+========================== */
+
+      .menu-options {
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+
+        /* NÃO DEIXA OS ITENS QUEBRAREM */
+        flex-wrap: nowrap;
+
+        gap: 8px;
+
+        /* SCROLL PARA OS LADOS */
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        white-space: nowrap;
+
+        padding: 2px 0 6px;
+
+        /* ESCONDE COMPLETAMENTE A BARRA */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+
+        /* SCROLL NATIVO NO CELULAR */
+        -webkit-overflow-scrolling: touch;
+
+        /* PERMITE ARRASTAR PARA OS LADOS */
+        touch-action: pan-x;
+      }
+
+      /* ESCONDE SCROLLBAR CHROME / EDGE / SAFARI */
+
+      .menu-options::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+      }
+
+      /* ==========================
+   OPÇÕES
+========================== */
+
+      .menu-option {
+        flex: 0 0 auto;
+
+        display: inline-flex;
+
+        align-items: center;
+        justify-content: center;
+
+        /* SEM BACKGROUND */
+        background: transparent;
+
+        color: #ffffff;
+
+        /* BORDA DE 8PX */
+        border: 8px solid transparent;
+
+        border-radius: 10px;
+
+        padding: 7px 14px;
+
+        text-decoration: none;
+
+        font-size: 14px;
+
+        font-weight: 600;
+
+        white-space: nowrap;
+
+        transition:
+          background 0.2s ease,
+          color 0.2s ease;
+      }
+
+      /* ==========================
+   HOVER
+   BACKGROUND SOMENTE AO PASSAR
+========================== */
+
+      .menu-option:hover {
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      /* ==========================
+   ACTIVE
+   SEM BACKGROUND
+========================== */
+
+      .menu-option.active {
+        background: transparent;
+
+        border-color: transparent;
+      }
+
+      /* ACTIVE TAMBÉM GANHA
+   BACKGROUND SOMENTE NO HOVER */
+
+      .menu-option.active:hover {
+        background: rgba(255, 255, 255, 0.12);
+
+        border-color: transparent;
+      }
+
+      /* ==========================
+   MOBILE
+========================== */
+
+      @media (max-width: 600px) {
+        .header-section {
+          width: 100%;
+          max-width: 100%;
+
+          overflow: hidden;
+        }
+
+        .menu-options {
+          width: 100%;
+
+          display: flex;
+
+          flex-wrap: nowrap;
+
+          align-items: center;
+
+          gap: 6px;
+
+          overflow-x: auto;
+          overflow-y: hidden;
+
+          white-space: nowrap;
+
+          /* SEM BARRA VISÍVEL */
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+
+          -webkit-overflow-scrolling: touch;
+
+          /* ARRASTAR PARA ESQUERDA/DIREITA */
+          touch-action: pan-x;
+
+          padding: 2px 0 6px;
+        }
+
+        .menu-options::-webkit-scrollbar {
+          display: none;
+
+          width: 0;
+          height: 0;
+        }
+
+        .menu-option {
+          flex: 0 0 auto;
+
+          font-size: 13px;
+
+          padding: 6px 12px;
+
+          border: 8px solid transparent;
+
+          white-space: nowrap;
+        }
+
+        .menu-option:hover {
+          background: rgba(255, 255, 255, 0.12);
+        }
+
+        .menu-option.active {
+          background: transparent;
+
+          border-color: transparent;
+        }
+      }
       /* COLLAPSER */
 
       .menu-collapse {
@@ -347,6 +535,22 @@
         </div>
       </div>
 
+      <!-- HEADER SECTION -->
+      <!-- MESMAS OPÇÕES DO CARDÁPIO, AGORA HORIZONTAIS -->
+
+      <section class="header-section">
+        <nav class="menu-options">
+          <a href="./index.html" class="menu-option active"> 🍽️ Restaurante </a>
+
+          <a href="./piscinamenu.html" class="menu-option"> 🍹 Piscina </a>
+
+          <a href="./roomservice.html" class="menu-option"> 🛎️ Room Service </a>
+
+          <a href="./cartadevinhos.html" class="menu-option">
+            🍷 Carta de Vinhos
+          </a>
+        </nav>
+      </section>
       <!-- SEARCH -->
       <input
         type="text"

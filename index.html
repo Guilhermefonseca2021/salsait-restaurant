@@ -55,6 +55,195 @@
         outline: none;
       }
 
+      /* ==========================
+   HEADER SECTION
+========================== */
+
+      .header-section {
+        width: 100%;
+        max-width: 800px;
+        overflow: hidden;
+      }
+
+      /* ==========================
+   OPÇÕES DO CARDÁPIO
+   SCROLL HORIZONTAL
+========================== */
+
+      .menu-options {
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+
+        /* NÃO DEIXA OS ITENS QUEBRAREM */
+        flex-wrap: nowrap;
+
+        gap: 8px;
+
+        /* SCROLL PARA OS LADOS */
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        white-space: nowrap;
+
+        padding: 2px 0 6px;
+
+        /* ESCONDE COMPLETAMENTE A BARRA */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+
+        /* SCROLL NATIVO NO CELULAR */
+        -webkit-overflow-scrolling: touch;
+
+        /* PERMITE ARRASTAR PARA OS LADOS */
+        touch-action: pan-x;
+      }
+
+      /* ESCONDE SCROLLBAR CHROME / EDGE / SAFARI */
+
+      .menu-options::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+      }
+
+      /* ==========================
+   OPÇÕES
+========================== */
+
+      .menu-option {
+        flex: 0 0 auto;
+
+        display: inline-flex;
+
+        align-items: center;
+        justify-content: center;
+
+        /* SEM BACKGROUND */
+        background: transparent;
+
+        color: #ffffff;
+
+        /* BORDA DE 8PX */
+        border: 8px solid transparent;
+
+        border-radius: 10px;
+
+        padding: 7px 14px;
+
+        text-decoration: none;
+
+        font-size: 14px;
+
+        font-weight: 600;
+
+        white-space: nowrap;
+
+        transition:
+          background 0.2s ease,
+          color 0.2s ease;
+      }
+
+      /* ==========================
+   HOVER
+   BACKGROUND SOMENTE AO PASSAR
+========================== */
+
+      .menu-option:hover {
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      /* ==========================
+   ACTIVE
+   SEM BACKGROUND
+========================== */
+
+      .menu-option.active {
+        background: transparent;
+
+        border-color: transparent;
+      }
+
+      /* ACTIVE TAMBÉM GANHA
+   BACKGROUND SOMENTE NO HOVER */
+
+      .menu-option.active:hover {
+        background: rgba(255, 255, 255, 0.12);
+
+        border-color: transparent;
+      }
+
+      /* ==========================
+   MOBILE
+========================== */
+
+      @media (max-width: 600px) {
+        .header-section {
+          width: 100%;
+          max-width: 100%;
+
+          overflow: hidden;
+        }
+
+        .menu-options {
+          width: 100%;
+
+          display: flex;
+
+          flex-wrap: nowrap;
+
+          align-items: center;
+
+          gap: 6px;
+
+          overflow-x: auto;
+          overflow-y: hidden;
+
+          white-space: nowrap;
+
+          /* SEM BARRA VISÍVEL */
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+
+          -webkit-overflow-scrolling: touch;
+
+          /* ARRASTAR PARA ESQUERDA/DIREITA */
+          touch-action: pan-x;
+
+          padding: 2px 0 6px;
+        }
+
+        .menu-options::-webkit-scrollbar {
+          display: none;
+
+          width: 0;
+          height: 0;
+        }
+
+        .menu-option {
+          flex: 0 0 auto;
+
+          font-size: 13px;
+
+          padding: 6px 12px;
+
+          border: 8px solid transparent;
+
+          white-space: nowrap;
+        }
+
+        .menu-option:hover {
+          background: rgba(255, 255, 255, 0.12);
+        }
+
+        .menu-option.active {
+          background: transparent;
+
+          border-color: transparent;
+        }
+      }
+
       .container {
         padding: 130px 15px 40px;
         max-width: 800px;
@@ -363,6 +552,22 @@
           <a href="./cartadevinhos.html">🍷 Carta de Vinhos</a>
         </div>
       </div>
+      <!-- HEADER SECTION -->
+      <!-- MESMAS OPÇÕES DO CARDÁPIO, AGORA HORIZONTAIS -->
+
+      <section class="header-section">
+        <nav class="menu-options">
+          <a href="./index.html" class="menu-option active"> 🍽️ Restaurante </a>
+
+          <a href="./piscinamenu.html" class="menu-option"> 🍹 Piscina </a>
+
+          <a href="./roomservice.html" class="menu-option"> 🛎️ Room Service </a>
+
+          <a href="./cartadevinhos.html" class="menu-option">
+            🍷 Carta de Vinhos
+          </a>
+        </nav>
+      </section>
 
       <!-- PESQUISA -->
       <input type="text" id="search" placeholder="O que deseja comer hoje?" />
@@ -803,6 +1008,506 @@
           }
         }, 500);
       }
+    </script>
+
+    <script>
+      (function () {
+        /* =====================================================
+     🍽️ MODAL DO CARDÁPIO
+     Frontend only • Sem backend • Vercel
+  ===================================================== */
+
+        /* =====================================================
+     🎨 CSS
+  ===================================================== */
+
+        const style = document.createElement("style");
+
+        style.textContent = `
+    .menu-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9999999;
+
+      display: none;
+
+      align-items: center;
+      justify-content: center;
+
+      padding: 15px;
+
+      background: rgba(0, 0, 0, .78);
+
+      backdrop-filter: blur(9px);
+      -webkit-backdrop-filter: blur(9px);
+    }
+
+
+    .menu-modal.active {
+      display: flex;
+
+      animation: menuModalFade .25s ease;
+    }
+
+
+    .menu-modal-content {
+      position: relative;
+
+      width: 100%;
+      max-width: 520px;
+
+      max-height: 94vh;
+
+      overflow-y: auto;
+
+      background: #fff;
+
+      border-radius: 24px;
+
+      box-shadow:
+        0 30px 90px rgba(0, 0, 0, .45);
+
+      animation: menuModalUp .3s ease;
+    }
+
+
+    /* =================================================
+       ❌ BOTÃO FECHAR
+    ================================================= */
+
+    .menu-modal-close {
+      position: absolute;
+
+      top: 14px;
+      right: 14px;
+
+      z-index: 10;
+
+      width: 42px;
+      height: 42px;
+
+      border: none;
+      border-radius: 50%;
+
+      background: rgba(0, 0, 0, .68);
+
+      color: #fff;
+
+      font-size: 27px;
+      line-height: 1;
+
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      transition: .2s ease;
+    }
+
+
+    .menu-modal-close:hover {
+      background: #000;
+
+      transform: scale(1.08);
+    }
+
+
+    /* =================================================
+       🖼️ IMAGEM EM DESTAQUE
+    ================================================= */
+
+    .menu-modal-image-area {
+      width: 100%;
+
+      min-height: 350px;
+
+      padding: 30px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      background:
+        radial-gradient(
+          circle at center,
+          #ffffff 0%,
+          #f4f4f4 55%,
+          #e6e6e6 100%
+        );
+    }
+
+
+    .menu-modal-image {
+      display: block;
+
+      width: auto;
+      max-width: 100%;
+
+      height: 330px;
+
+      object-fit: contain;
+
+      filter:
+        drop-shadow(
+          0 22px 22px rgba(0, 0, 0, .22)
+        );
+
+      transition: transform .3s ease;
+    }
+
+
+    .menu-modal-image:hover {
+      transform: scale(1.04);
+    }
+
+
+    /* =================================================
+       📄 INFORMAÇÕES
+    ================================================= */
+
+    .menu-modal-body {
+      padding: 27px;
+    }
+
+
+    .menu-modal-title {
+      margin: 0 0 10px;
+
+      color: #171717;
+
+      font-family: Georgia, serif;
+
+      font-size: 29px;
+
+      line-height: 1.15;
+    }
+
+
+    .menu-modal-description {
+      margin: 0 0 18px;
+
+      color: #666;
+
+      font-size: 14px;
+
+      line-height: 1.6;
+    }
+
+
+    .menu-modal-price {
+      display: inline-block;
+
+      padding: 8px 15px;
+
+      border-radius: 30px;
+
+      background: #222;
+
+      color: #fff;
+
+      font-size: 18px;
+
+      font-weight: 700;
+    }
+
+
+    /* =================================================
+       🎬 ANIMAÇÕES
+    ================================================= */
+
+    @keyframes menuModalFade {
+
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+
+    }
+
+
+    @keyframes menuModalUp {
+
+      from {
+        opacity: 0;
+
+        transform:
+          translateY(25px)
+          scale(.97);
+      }
+
+      to {
+        opacity: 1;
+
+        transform:
+          translateY(0)
+          scale(1);
+      }
+
+    }
+
+
+    /* =================================================
+       📱 MOBILE
+    ================================================= */
+
+    @media (max-width: 600px) {
+
+      .menu-modal {
+        padding: 10px;
+      }
+
+
+      .menu-modal-content {
+        max-height: 95vh;
+
+        border-radius: 20px;
+      }
+
+
+      .menu-modal-image-area {
+        min-height: 300px;
+
+        padding: 25px;
+      }
+
+
+      .menu-modal-image {
+        height: 280px;
+      }
+
+
+      .menu-modal-body {
+        padding: 22px;
+      }
+
+
+      .menu-modal-title {
+        font-size: 25px;
+      }
+
+
+      .menu-modal-price {
+        font-size: 17px;
+      }
+
+    }
+  `;
+
+        document.head.appendChild(style);
+
+        /* =====================================================
+     🧱 HTML DO MODAL
+  ===================================================== */
+
+        const modal = document.createElement("div");
+
+        modal.className = "menu-modal";
+
+        modal.innerHTML = `
+
+    <div class="menu-modal-content">
+
+
+      <!-- FECHAR -->
+
+      <button
+        class="menu-modal-close"
+        type="button"
+        aria-label="Fechar"
+      >
+        ×
+      </button>
+
+
+      <!-- IMAGEM -->
+
+      <div class="menu-modal-image-area">
+
+        <img
+          class="menu-modal-image"
+          src=""
+          alt=""
+        />
+
+      </div>
+
+
+      <!-- INFORMAÇÕES -->
+
+      <div class="menu-modal-body">
+
+        <h2 class="menu-modal-title"></h2>
+
+        <p class="menu-modal-description"></p>
+
+        <div class="menu-modal-price"></div>
+
+      </div>
+
+
+    </div>
+
+  `;
+
+        document.body.appendChild(modal);
+
+        /* =====================================================
+     🔎 ELEMENTOS DO MODAL
+  ===================================================== */
+
+        const modalImage = modal.querySelector(".menu-modal-image");
+
+        const modalTitle = modal.querySelector(".menu-modal-title");
+
+        const modalDescription = modal.querySelector(".menu-modal-description");
+
+        const modalPrice = modal.querySelector(".menu-modal-price");
+
+        const closeButton = modal.querySelector(".menu-modal-close");
+
+        /* =====================================================
+     🚀 ABRIR MODAL
+  ===================================================== */
+
+        function openModal(item) {
+          if (!item) return;
+
+          /* =================================================
+       🖼️ IMAGEM
+    ================================================= */
+
+          const image = item.querySelector("img");
+
+          /* =================================================
+       🍽️ NOME
+    ================================================= */
+
+          const title = item.querySelector("h1, h2, h3, h4, h5, h6");
+
+          /* =================================================
+       📝 DESCRIÇÃO
+    ================================================= */
+
+          const description = item.querySelector("p");
+
+          /* =================================================
+       💰 PREÇO
+    ================================================= */
+
+          const price = item.querySelector(".price, .preco, .valor");
+
+          /* =================================================
+       NOME
+    ================================================= */
+
+          modalTitle.textContent = title?.textContent?.trim() || "Prato";
+
+          /* =================================================
+       DESCRIÇÃO
+    ================================================= */
+
+          modalDescription.textContent = description?.textContent?.trim() || "";
+
+          /* =================================================
+       PREÇO
+    ================================================= */
+
+          modalPrice.textContent = price?.textContent?.trim() || "";
+
+          /* =================================================
+       IMAGEM
+    ================================================= */
+
+          if (image?.src) {
+            modalImage.src = image.src;
+
+            modalImage.alt = title?.textContent?.trim() || "Imagem do prato";
+
+            modalImage.style.display = "block";
+          } else {
+            modalImage.removeAttribute("src");
+
+            modalImage.style.display = "none";
+          }
+
+          /* =================================================
+       ABRIR
+    ================================================= */
+
+          modal.classList.add("active");
+
+          document.body.style.overflow = "hidden";
+        }
+
+        /* =====================================================
+     ❌ FECHAR MODAL
+  ===================================================== */
+
+        function closeModal() {
+          modal.classList.remove("active");
+
+          document.body.style.overflow = "";
+        }
+
+        /* =====================================================
+     🍽️ CLIQUE NOS CARDS
+  ===================================================== */
+
+        document.addEventListener("click", function (event) {
+          const item = event.target.closest(".item");
+
+          if (!item) return;
+
+          /*
+           * Não interfere em botões
+           * ou inputs.
+           */
+
+          if (event.target.closest("button") || event.target.closest("input")) {
+            return;
+          }
+
+          /*
+           * Impede que o link da imagem
+           * navegue para outra página.
+           */
+
+          event.preventDefault();
+
+          openModal(item);
+        });
+
+        /* =====================================================
+     ❌ BOTÃO FECHAR
+  ===================================================== */
+
+        closeButton.addEventListener("click", closeModal);
+
+        /* =====================================================
+     🌑 CLICAR FORA
+  ===================================================== */
+
+        modal.addEventListener("click", function (event) {
+          if (event.target === modal) {
+            closeModal();
+          }
+        });
+
+        /* =====================================================
+     ⌨️ ESC
+  ===================================================== */
+
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape" && modal.classList.contains("active")) {
+            closeModal();
+          }
+        });
+      })();
     </script>
 
     <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
